@@ -77,6 +77,11 @@ div:nth-child(even), div:nth-child(even) h3 {
     line-height: 2rem;
     text-align: left;
   }
+  p {
+    width: calc(100% - 2rem);
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
   div {
     padding: 0.5rem 1rem 1.5rem 1rem;
   }
