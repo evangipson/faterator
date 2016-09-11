@@ -1,4 +1,4 @@
-# faterator
+# Faterator
 Faterator uses JavaScript to generate you a Fate Accelerated character.
 
 | Faterator Readme |
