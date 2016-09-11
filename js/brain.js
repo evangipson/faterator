@@ -19,10 +19,9 @@ var FATERATOR = (function() {
   // Possessions/Items/Artifacts
   var items = [
     "Owner of the " + createFantasyName() + " amulet",
-    "Owner of the " + createFantasyName() + " ring",
     "Owner of the " + createFantasyName() + " artifact",
     "Pilot of The " + createFantasyName() + " ship",
-    "Wielder of " + createTreasure()
+    "Wielder of a fabled " + createTreasure()
   ];
   // Relationships with NPCs/Groups
   var relationships = [
