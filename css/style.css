@@ -1,0 +1,87 @@
+/* Basic CSS Rules */
+body, html {
+  font-size: 22px;
+  line-height: 26px;
+  font-family: 'Cormorant Infant', serif;
+  text-align: center;
+  font-weight: 300;
+  margin: 0;
+  padding: 0;
+}
+div {
+  padding: 0.75rem 2rem 1.5rem 1.5rem;
+}
+p {
+  width: 66%;
+  margin: 0 auto;
+}
+/* Header and Subtitle Styles */
+h1, .subtitle, h3 {
+  font-weight: bold;
+  font-family: 'Cormorant Unicase', serif;
+}
+h1, .subtitle {
+  background: #fc4a1a;
+  color: #fefefe;
+}
+.subtitle {
+  margin: 0;
+  padding: 1rem 0 0.66rem 0;
+  width: 100%;
+}
+h1, h3 {
+  margin: 0;
+}
+h1 {
+  padding-top: 2rem;
+  font-size: 3rem;
+}
+h3 {
+  padding: 1rem 0;
+  margin-bottom: 0.5rem;
+  font-size: 2rem;
+  color: #fc4a1a;
+}
+/* List Styles */
+ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+}
+ul li {
+  padding-bottom: 0.5rem;
+}
+ul li:last-child {
+  padding-bottom: 0;
+}
+/* Fancy Alternating Color Divs */
+div:nth-child(odd), div:nth-child(odd) h3 {
+  background: #fc4a1a;
+  color: #fefefe;
+}
+/* Phone Styles */
+@media only screen and (max-width : 600px) {
+  body {
+    font-size: 22px;
+    line-height: 2rem;
+    text-align: left;
+  }
+  div {
+    padding: 0.5rem 1rem 1.5rem 1rem;
+  }
+  h1, .subtitle {
+    text-align: center;
+    padding-top: 1rem;
+    padding-left: 0;
+  }
+  h1 {
+    font-size: 2.5rem;
+  }
+  .subtitle {
+    font-size: 1rem;
+  }
+  h3 {
+    font-size: 1.85rem;
+    padding-bottom: 0.5rem;
+  }
+}
