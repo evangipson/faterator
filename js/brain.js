@@ -308,7 +308,7 @@ var FATERATOR = (function() {
       "Greedy",
       "Nosy",
       "Awkward",
-      "Supersticious",
+      "Superstitious",
       "Suspicious",
       "Reckless"
     ];
