@@ -204,7 +204,7 @@ var FATERATOR = (function() {
     }];
     var forcefulStunts = [{
       "name": "Super Strength",
-      "description": "Because of my super strength, I'm able to add 2 to my forceful roll when I move something or fight."
+      "description": "Because of my super strength, I'm able to add 2 to my strength roll when I move something or fight."
     }];
     var carefulStunts = [{
       "name": "Eagle Eye",
@@ -338,13 +338,13 @@ var FATERATOR = (function() {
   function createAspect() {
     // Variables for this are defined within
     // Decide which array to return an element from
-    if(randomNum(100) > 25) {
+    if(randomNum(100) < 25) {
       return beliefs.splice(randomNum(beliefs.length), 1);
     }
-    else if(randomNum(100) > 25) {
+    else if(randomNum(100) < 25) {
       return items.splice(randomNum(items.length), 1);
     }
-    else if(randomNum(100) > 25) {
+    else if(randomNum(100) < 25) {
       return relationships.splice(randomNum(relationships.length), 1);
     }
     else {
