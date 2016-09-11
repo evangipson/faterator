@@ -204,7 +204,7 @@ var FATERATOR = (function() {
     }];
     var forcefulStunts = [{
       "name": "Super Strength",
-      "description": "Because of my super strength, I'm able to add 2 to my strength roll when I move something or fight."
+      "description": "Because of my super strength, I'm able to add 2 to my forceful roll when I move something or fight."
     }];
     var carefulStunts = [{
       "name": "Eagle Eye",
