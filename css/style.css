@@ -66,7 +66,7 @@ ul li:last-child {
   padding-bottom: 0;
 }
 /* Fancy Alternating Color Divs */
-div:nth-child(odd), div:nth-child(odd) h3 {
+div:nth-child(even), div:nth-child(even) h3 {
   background: #fc4a1a;
   color: #fefefe;
 }
