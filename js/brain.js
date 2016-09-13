@@ -1,127 +1,134 @@
 // Our variable that holds the entire
 // faterator enclosure inside, along with
 // the init function
-var FATERATOR = (function() {
-  // Module that we will return
-  var fateratorModule = {};
-  // Shared variables
-  // ----------------
-  // Beliefs
-  var beliefs = [
-    "The only good " + createFantasyName() + " is a dead one",
-    "Hates " + createFullName(),
-    "Hates the " + createFantasyName() + " family",
-    "Never trust a " + createFantasyName(),
-    "Sworn to avenge their Father",
-    "Sworn to avenge their Mother",
-    "Sworn to avenge their Family"
-  ];
-  // Possessions/Items/Artifacts
-  var items = [
-    "Owner of the " + createFantasyName() + " amulet",
-    "Owner of the " + createFantasyName() + " artifact",
-    "Pilot of The " + createFantasyName() + " ship",
-    "Wielder of a fabled " + createTreasure()
-  ];
-  // Relationships with NPCs/Groups
-  var relationships = [
-    "Sibling of " + createFullName(),
-    "Child of " + createFullName(),
-    "Parent of " + createFullName(),
-    "Enemy of the " + createFantasyName(),
-    "Friend of the " + createFantasyName(),
-    "Raised in " + createFantasyName() + " royalty",
-  ];
-  // Titles and Traits
-  var titles = [
-    "Army General",
-    "Street Waif",
-    "Of Noble Blood",
-    "Amnesiac",
-    "Sharp Eyed",
-    "Sharpshooter",
-    "Government Official",
-    "Dungeon Hunter",
-    "Trouble Seeker",
-    "Theif",
+var FATERATOR = (function(fateratorModule) {
+  // Pull in any query string variables we have
+  var savedCharacterName = getParameterByName("chNm");
+  var savedCharacterApproaches = getParameterByName("chAp");
+  // "Public" Functions (Functions that data.js needs)
+  // -------------------------------------------------
+  // Init function to handle all the
+  // initialization required to return
+  // the module
+  fateratorModule.init = function() {
+    renderName();
+    renderHighAspect();
+    renderTrouble();
+    renderApproaches();
+    renderAspects();
+    renderStunt();
+  };
+  // Return ONE name that sounds fantasy-y
+  fateratorModule.createFantasyName = function() {
+    // return three syllables - 75% chance
+    if(randomNum(100) < 75) {
+      return fateratorModule["DATA"].names.first[randomNum(fateratorModule["DATA"].names.first.length)] + names_second[randomNum(names_second.length)] + names_third[randomNum(names_third.length)];
+    }
+    // otherwise just return two
+    return fateratorModule.names_first[randomNum(fateratorModule["names_first"].length)] + names_third[randomNum(names_third.length)];
+  };
+  // Return a full name
+  fateratorModule.createFullName = function() {
+    return fateratorModule.createFantasyName() + " " + fateratorModule.createFantasyName();
+  }
+  // Function that will create ONE mythical
+  // or cool-sounding treasure
+  fateratorModule.createTreasure = function() {
+    // List of a bunch of treasure-y adjectives
+    var adjective = [
+      "Black",
+      "Obsidian",
+      "Emerald",
+      "Malachite",
+      "Jade",
+      "Tiger's Eye",
+      "Onyx",
+      "Ruby",
+      "Sapphire",
+      "Diamond",
+      "Plutonium",
+      "Xenon",
+      "Neon",
+      "Radon",
+      "Nitrogen",
+      "Hydrogen",
+      "Einsteinium",
+      "Oxygen",
+      "Water",
+      "Earth",
+      "Air",
+      "Lightning",
     ];
+    // List of a bunch of base treasures
+    var treasure = [
+      "Ring",
+      "Gem",
+      "Stone",
+      "Necklace",
+      "Amulet",
+      "Sword",
+      "Greataxe",
+      "Greatsword",
+      "Rapier",
+      "Blaster Pistol",
+      "Raygun",
+      "Laser Rifle",
+      "Plasma Rifle",
+      "Cube",
+      "Sphere",
+      "Orb",
+      "Broach",
+      "Circlet",
+      "Coin",
+      "Sculpture",
+      "Crown"
+    ];
+    return adjective[randomNum(adjective.length)] + " " + treasure[randomNum(treasure.length)];
+  }
+  // Functions
+  // ---------
+  // Will return a url parameter given the
+  // name of the parameter used; also takes
+  // an optional url but will look at
+  // window.location.href
+  function getParameterByName(name, url) {
+    if (!url) url = window.location.href;
+    name = name.replace(/[\[\]]/g, "\\$&");
+    var regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)"),
+        results = regex.exec(url);
+    if (!results) return null;
+    if (!results[2]) return '';
+    return decodeURIComponent(results[2].replace(/\+/g, " "));
+  }
+  // Thanks http://stackoverflow.com/questions/5999118/add-or-update-query-string-parameter
+  // for this function!
+  // If no URL is supplied, it will be grabbed from window.location
+  function updateQueryStringParameter(uri, key, value) {
+    var re = new RegExp("([?&])" + key + "=.*?(&|$)", "i");
+    var separator = uri.indexOf('?') !== -1 ? "&" : "?";
+    if (uri.match(re)) {
+      return uri.replace(re, '$1' + key + "=" + value + '$2');
+    }
+    else {
+      return uri + separator + key + "=" + value;
+    }
+  }
   // Returns a number that is random within range
   function randomNum(highNum) {
     return Math.floor(Math.random() * parseInt(highNum));
-  }
-  // Return ONE name that sounds fantasy-y
-  function createFantasyName() {
-    // First syllables(ish)
-    var names_first = [
-      "Ga",
-      "Xu",
-      "Yi",
-      "Fu",
-      "Fo",
-      "Va",
-      "Vi",
-      "Hi",
-      "He",
-      "Mi",
-      "My"
-    ];
-    // Second and Third syllables(ish)
-    var names_second = [
-      "r",
-      "lo",
-      "li",
-      "no",
-      "ni",
-      "na",
-      "ya",
-      "ta",
-      "to",
-      "ys",
-      "di",
-      "da",
-      "ka",
-      "ki",
-      "ku",
-      "ri",
-      "hsh",
-      "xh",
-      "xi",
-      "z",
-      "zi",
-      "ze",
-      "za"
-    ];
-    var names_third = [
-      "k",
-      "m",
-      "n",
-      "t",
-      "tt",
-      "l",
-      "ae",
-      "e",
-      "pic",
-      "stic",
-      "ope",
-      "ium",
-      "lon"
-    ];
-    // return three syllables - 75% chance
-    if(randomNum(100) < 75) {
-      return names_first[randomNum(names_first.length)] + names_second[randomNum(names_second.length)] + names_third[randomNum(names_third.length)];
-    }
-    // otherwise just return two
-    return names_first[randomNum(names_first.length)] + names_third[randomNum(names_third.length)];
-  }
-  // Return a full name
-  function createFullName() {
-    return createFantasyName() + " " + createFantasyName();
   }
   // Function that sets the HTML elements
   // using our createFantasyName function
   function renderName() {
     var nameElement = document.getElementsByClassName("name")[0];
-    nameElement.innerHTML += " " + createFullName();
+    if(savedCharacterName) {
+      nameElement.innerHTML += " " + savedCharacterName;
+    }
+    else {
+      var fullName = fateratorModule.createFullName();
+      nameElement.innerHTML += " " + fullName;
+      updateQueryStringParamater("chNm", fullName);
+    }
   }
   // Function that will return an array of
   // numbers that represent approaches
@@ -134,47 +141,90 @@ var FATERATOR = (function() {
       "Sneaky",
       "Quick"
     ];
-    // Pick one to be our "best" approach, and actually
-    // remove it from the array.
-    var bestApproach = {
-      "boost": 3,
-      "approach": approaches.splice([randomNum(approaches.length)], 1)
-    };
-    var goodApproaches = [
-      {
+    // If we have a saved character in our URL...
+    if(savedCharacterApproaches) {
+      // Gather up our query string variables
+      // and break them into approahces
+      savedApproachIndex = [
+        savedCharacterApproaches.substr(0,2),
+        savedCharacterApproaches.substr(2,2),
+        savedCharacterApproaches.substr(4,2),
+        savedCharacterApproaches.substr(6,2),
+        savedCharacterApproaches.substr(8,2),
+        savedCharacterApproaches.substr(10,2)
+      ];
+      // Set our approaches based on our
+      // query string indexes
+      var queryStringApproaches = [];
+      for(var i = 0; i < 6; i++) {
+        queryStringApproaches.push({
+          "boost": savedApproachIndex[i].substr(i+1,1),
+          "approach": approachs[parseInt(savedApproachIndex.substr(i,1))]
+        });
+      }
+    }
+    // Otherwise we should just render out a generated one.
+    else {
+      /*
+      // Pick one to be our "best" approach, and actually
+      // remove it from the array.
+      var approachIndex = randomNum(approaches.length);
+      // Update the query string
+      var queryStringApproach = approachIndex.toString() + "3";
+      var bestApproach = {
+        "boost": 3,
+        "approach": approaches.splice([randomNum(approaches.length)], 1)
+      };
+      var goodApproaches;
+      approachIndex = randomNum(approaches.length);
+      // Update the query string
+      queryStringApproach += approachIndex.toString() + "2";
+      goodApproaches[0] = {
         "boost": 2,
         "approach": approaches.splice([randomNum(approaches.length)], 1)
-      },
-      {
+      };
+      approachIndex = randomNum(approaches.length);
+      // Update the query string
+      queryStringApproach += approachIndex.toString() + "2";
+      goodApproaches[1] = {
         "boost": 2,
         "approach": approaches.splice([randomNum(approaches.length)], 1)
       }
-    ];
-    var noviceApproaches = [
-      {
+      var noviceApproaches;
+      approachIndex = randomNum(approaches.length);
+      // Update the query string
+      queryStringApproach += approachIndex.toString() + "1";
+      noviceApproaches[0] = {
         "boost": 1,
         "approach": approaches.splice([randomNum(approaches.length)], 1)
-      },
-      {
+      };
+      approachIndex = randomNum(approaches.length);
+      noviceApproaches[1] = {
         "boost": 1,
         "approach": approaches.splice([randomNum(approaches.length)], 1)
       }
-    ];
-    var worstApproach = {
-      "boost": 0,
-      // I can count on this being the last element in the array since
-      // we've iterated on it 5 times and there are 6 elements.
-      "approach": approaches[0]
-    };
-    // Create the new approaches array
-    approaches = [
-      bestApproach,
-      goodApproaches[0],
-      goodApproaches[1],
-      noviceApproaches[0],
-      noviceApproaches[1],
-      worstApproach
-    ];
+      approachIndex = randomNum(approaches.length);
+      // Update the query string
+      queryStringApproach += approachIndex.toString() + "0";
+      var worstApproach = {
+        "boost": 0,
+        // I can count on this being the last element in the array since
+        // we've iterated on it 5 times and there are 6 elements.
+        "approach": approaches[0]
+      };
+      // Create the new approaches array
+      approaches = [
+        bestApproach,
+        goodApproaches[0],
+        goodApproaches[1],
+        noviceApproaches[0],
+        noviceApproaches[1],
+        worstApproach
+      ];
+      */
+      // Update the query string with our variable
+      updateQueryStringParameter("chAp", queryStringApproach);
+    }
     // Update the HTML elements
     var approachesDiv = document.getElementsByClassName("approaches")[0];
     var nameListElement = document.createElement("ul");
@@ -247,60 +297,6 @@ var FATERATOR = (function() {
     var stuntContent = document.createTextNode(newStunt.name + " - " + newStunt.description);
     newParagraphElement.appendChild(stuntContent);
     stuntElement.appendChild(newParagraphElement);
-  }
-  // Function that will create ONE mythical
-  // or cool-sounding treasure
-  function createTreasure() {
-    // List of a bunch of treasure-y adjectives
-    var adjective = [
-      "Black",
-      "Obsidian",
-      "Emerald",
-      "Malachite",
-      "Jade",
-      "Tiger's Eye",
-      "Onyx",
-      "Ruby",
-      "Sapphire",
-      "Diamond",
-      "Plutonium",
-      "Xenon",
-      "Neon",
-      "Radon",
-      "Nitrogen",
-      "Hydrogen",
-      "Einsteinium",
-      "Oxygen",
-      "Water",
-      "Earth",
-      "Air",
-      "Lightning",
-    ];
-    // List of a bunch of base treasures
-    var treasure = [
-      "Ring",
-      "Gem",
-      "Stone",
-      "Necklace",
-      "Amulet",
-      "Sword",
-      "Greataxe",
-      "Greatsword",
-      "Rapier",
-      "Blaster Pistol",
-      "Raygun",
-      "Laser Rifle",
-      "Plasma Rifle",
-      "Cube",
-      "Sphere",
-      "Orb",
-      "Broach",
-      "Circlet",
-      "Coin",
-      "Sculpture",
-      "Crown"
-    ];
-    return adjective[randomNum(adjective.length)] + " " + treasure[randomNum(treasure.length)];
   }
   // Function that will return ONE trouble
   function createTrouble() {
@@ -382,21 +378,10 @@ var FATERATOR = (function() {
     var aspectDiv = document.getElementsByClassName("high-aspect")[0];
     aspectDiv.innerHTML += " " + jobs[randomNum(jobs.length)] + ", " + createAspect();
   }
-  // Init function to handle all the
-  // initialization required to return
-  // the module
-  fateratorModule.init = function() {
-    renderName();
-    renderHighAspect();
-    renderTrouble();
-    renderApproaches();
-    renderAspects();
-    renderStunt();
-  };
   // Give back the module which has the
   // init function inside
   return fateratorModule;
-})(); // Immediately Invoked Function Expression
+}(FATERATOR || {})); // Augmented Immediately Invoked Function Expression
 
 // Wait until the document is ready, then
 // load our init function that we have due
