@@ -2,8 +2,6 @@
 // faterator enclosure inside, along with
 // the init function
 var FATERATOR = (function(fateratorModule) {
-  // Pull in any query string variables we have
-  var savedCharacterName = getParameterByName("chNm");
   // Pull in the DATA module
   // "Faterator Data"
   FD = fateratorModule.DATA;
@@ -69,13 +67,18 @@ var FATERATOR = (function(fateratorModule) {
   // Function that sets the HTML elements
   // using our createFantasyName function
   function renderName() {
+    // Pull in any query string variables we have
+    var savedCharacterName = getParameterByName("chNm");
+    // Pull in HTML element for the name
     var nameElement = document.getElementsByClassName("name")[0];
+    // If we have a saved character, let's use the query string parameter
     if(savedCharacterName) {
       nameElement.innerHTML += " " + savedCharacterName;
     }
     else {
       var fullName = fateratorModule.createFullName();
       nameElement.innerHTML += " " + fullName;
+      // Set the URL of the browser to the updated query string
       window.location = UpdateQueryString("chNm", fullName);
     }
   }
