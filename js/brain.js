@@ -73,6 +73,8 @@ var FATERATOR = (function(fateratorModule) {
       "Sneaky",
       "Quick"
     ];
+    /* 
+    
     // If we have a saved character in our URL...
     if(savedCharacterApproaches) {
       // Gather up our query string variables
@@ -87,7 +89,7 @@ var FATERATOR = (function(fateratorModule) {
       ];
       // Set our approaches based on our
       // query string indexes
-      var queryStringApproaches = [];
+      /*var queryStringApproaches = [];
       for(var i = 0; i < 6; i++) {
         queryStringApproaches.push({
           "boost": savedApproachIndex[i].substr(i+1,1),
@@ -97,35 +99,28 @@ var FATERATOR = (function(fateratorModule) {
     }
     // Otherwise we should just render out a generated one.
     else {
-      /*
+
+      */
       // Pick one to be our "best" approach, and actually
       // remove it from the array.
       var approachIndex = fateratorModule.randomNum(approaches.length);
-      // Update the query string
-      var queryStringApproach = approachIndex.toString() + "3";
       var bestApproach = {
         "boost": 3,
         "approach": approaches.splice([fateratorModule.randomNum(approaches.length)], 1)
       };
-      var goodApproaches;
+      var goodApproaches = [];
       approachIndex = fateratorModule.randomNum(approaches.length);
-      // Update the query string
-      queryStringApproach += approachIndex.toString() + "2";
       goodApproaches[0] = {
         "boost": 2,
         "approach": approaches.splice([fateratorModule.randomNum(approaches.length)], 1)
       };
       approachIndex = fateratorModule.randomNum(approaches.length);
-      // Update the query string
-      queryStringApproach += approachIndex.toString() + "2";
       goodApproaches[1] = {
         "boost": 2,
         "approach": approaches.splice([fateratorModule.randomNum(approaches.length)], 1)
       }
-      var noviceApproaches;
+      var noviceApproaches = [];
       approachIndex = fateratorModule.randomNum(approaches.length);
-      // Update the query string
-      queryStringApproach += approachIndex.toString() + "1";
       noviceApproaches[0] = {
         "boost": 1,
         "approach": approaches.splice([fateratorModule.randomNum(approaches.length)], 1)
@@ -136,8 +131,6 @@ var FATERATOR = (function(fateratorModule) {
         "approach": approaches.splice([fateratorModule.randomNum(approaches.length)], 1)
       }
       approachIndex = fateratorModule.randomNum(approaches.length);
-      // Update the query string
-      queryStringApproach += approachIndex.toString() + "0";
       var worstApproach = {
         "boost": 0,
         // I can count on this being the last element in the array since
@@ -153,10 +146,7 @@ var FATERATOR = (function(fateratorModule) {
         noviceApproaches[1],
         worstApproach
       ];
-      */
-      // Update the query string with our variable
-      updateQueryStringParameter("chAp", queryStringApproach);
-    }
+    // } (end else that is commented out)
     // Update the HTML elements
     var approachesDiv = document.getElementsByClassName("approaches")[0];
     var nameListElement = document.createElement("ul");
@@ -164,7 +154,6 @@ var FATERATOR = (function(fateratorModule) {
     for(var i = 0; i < approaches.length; i++) {
       tempListItem = document.createElement("li");
       tempListItem.appendChild(document.createTextNode(approaches[i].approach + ": +" + approaches[i].boost));
-      console.log(approaches[i].approach + ": +" + approaches[i].boost);
       nameListElement.appendChild(tempListItem);
     }
     approachesDiv.appendChild(nameListElement);
@@ -264,32 +253,36 @@ var FATERATOR = (function(fateratorModule) {
   // aspect and return it.
   function createAspect() {
     // We'll return this.
-    var returnAspect = {};
+    var returnAspect;
     // Variables for this are defined within
     // Decide which array to return an element from
     if(fateratorModule.randomNum(100) < 25) {
       // We're using the items array, so 
       // let's import that from our DATARATOR
       var beliefs = FD.aspects.beliefs;
-      return beliefs.splice(fateratorModule.randomNum(beliefs.length), 1);
+      returnAspect = beliefs.splice(fateratorModule.randomNum(beliefs.length), 1)[0];
+      return returnAspect.value;
     }
     else if(fateratorModule.randomNum(100) < 25) {
       // We're using the items array, so 
       // let's import that from our DATARATOR
       var items = FD.aspects.items;
-      return items.splice(fateratorModule.randomNum(items.length), 1);
+      returnAspect = items.splice(fateratorModule.randomNum(items.length), 1)[0];
+      return returnAspect.value;
     }
     else if(fateratorModule.randomNum(100) < 25) {
       // We're using the items array, so 
       // let's import that from our DATARATOR
       var relationships = FD.aspects.relationships;
-      return relationships.splice(fateratorModule.randomNum(relationships.length), 1);
+      returnAspect = relationships.splice(fateratorModule.randomNum(relationships.length), 1)[0];
+      return returnAspect.value;
     }
     else {
       // We're using the items array, so 
       // let's import that from our DATARATOR
       var titles = FD.aspects.titles;
-      return titles.splice(fateratorModule.randomNum(titles.length), 1);
+      returnAspect = titles.splice(fateratorModule.randomNum(titles.length), 1)[0];
+      return returnAspect.value;
     }
   }
   // Function to render out the remaining aspects
