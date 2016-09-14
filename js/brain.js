@@ -79,8 +79,8 @@ var FATERATOR = (function(fateratorModule) {
       var fullName = fateratorModule.createFullName();
       nameElement.innerHTML += " " + fullName;
       // Set the URL of the browser to the updated query string
-      // to the "hash" part of the URL returned by UpdateQueryString()
-      location.hash = updateQueryString("chNm", fullName, location.hash).split("#")[0];
+      // to the "query" part of the URL returned by UpdateQueryString()
+      location.hash = "?" + updateQueryString("chNm", fullName).split('?')[1];
     }
   }
   // Function that will return an array of
