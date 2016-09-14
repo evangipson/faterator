@@ -282,13 +282,13 @@ var FATERATOR = (function(fateratorModule) {
     else if(fateratorModule.randomNum(100) < 25) {
       // We're using the items array, so 
       // let's import that from our DATARATOR
-      var items = FD.aspects.relationships;
+      var relationships = FD.aspects.relationships;
       return relationships.splice(fateratorModule.randomNum(relationships.length), 1);
     }
     else {
       // We're using the items array, so 
       // let's import that from our DATARATOR
-      var items = FD.aspects.titles;
+      var titles = FD.aspects.titles;
       return titles.splice(fateratorModule.randomNum(titles.length), 1);
     }
   }
