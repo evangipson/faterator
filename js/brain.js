@@ -76,7 +76,7 @@ var FATERATOR = (function(fateratorModule) {
     else {
       var fullName = fateratorModule.createFullName();
       nameElement.innerHTML += " " + fullName;
-      location.hash = UpdateQueryString("chNm", fullName.toLower());
+      window.location = UpdateQueryString("chNm", fullName);
     }
   }
   // Function that will return an array of
