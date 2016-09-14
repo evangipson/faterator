@@ -23,9 +23,9 @@ var FATERATOR = (function(fateratorModule) {
   // Will return a url parameter given the
   // name of the parameter used; also takes
   // an optional url but will look at
-  // window.location.href
+  // window.location.hash
   function getParameterByName(name, url) {
-    if (!url) url = window.location.href;
+    if (!url) url = window.location.hash;
     name = name.replace(/[\[\]]/g, "\\$&");
     var regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)"),
         results = regex.exec(url);
@@ -36,7 +36,7 @@ var FATERATOR = (function(fateratorModule) {
   // Thanks http://stackoverflow.com/questions/5999118/add-or-update-query-string-parameter
   // for this function!
   // If no URL is supplied, it will be grabbed from window.location
-  function UpdateQueryString(key, value, url) {
+  function updateQueryString(key, value, url) {
     if (!url) url = window.location.href;
     var re = new RegExp("([?&])" + key + "=.*?(&|#|$)(.*)", "gi"),
         hash;
@@ -79,7 +79,8 @@ var FATERATOR = (function(fateratorModule) {
       var fullName = fateratorModule.createFullName();
       nameElement.innerHTML += " " + fullName;
       // Set the URL of the browser to the updated query string
-      window.location = UpdateQueryString("chNm", fullName);
+      // to the "hash" part of the URL returned by UpdateQueryString()
+      location.hash = updateQueryString("chNm", fullName, location.hash).split("#")[0];
     }
   }
   // Function that will return an array of
