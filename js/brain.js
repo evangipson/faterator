@@ -5,6 +5,9 @@ var FATERATOR = (function(fateratorModule) {
   // Pull in any query string variables we have
   var savedCharacterName = getParameterByName("chNm");
   var savedCharacterApproaches = getParameterByName("chAp");
+  // Pull in the DATA module
+  // "Faterator Data"
+  FD = fateratorModule.DATA;
   // "Public" Functions (Functions that data.js needs)
   // -------------------------------------------------
   // Init function to handle all the
@@ -18,73 +21,6 @@ var FATERATOR = (function(fateratorModule) {
     renderAspects();
     renderStunt();
   };
-  // Return ONE name that sounds fantasy-y
-  fateratorModule.createFantasyName = function() {
-    // return three syllables - 75% chance
-    if(randomNum(100) < 75) {
-      return fateratorModule["DATA"].names.first[randomNum(fateratorModule["DATA"].names.first.length)] + names_second[randomNum(names_second.length)] + names_third[randomNum(names_third.length)];
-    }
-    // otherwise just return two
-    return fateratorModule.names_first[randomNum(fateratorModule["names_first"].length)] + names_third[randomNum(names_third.length)];
-  };
-  // Return a full name
-  fateratorModule.createFullName = function() {
-    return fateratorModule.createFantasyName() + " " + fateratorModule.createFantasyName();
-  }
-  // Function that will create ONE mythical
-  // or cool-sounding treasure
-  fateratorModule.createTreasure = function() {
-    // List of a bunch of treasure-y adjectives
-    var adjective = [
-      "Black",
-      "Obsidian",
-      "Emerald",
-      "Malachite",
-      "Jade",
-      "Tiger's Eye",
-      "Onyx",
-      "Ruby",
-      "Sapphire",
-      "Diamond",
-      "Plutonium",
-      "Xenon",
-      "Neon",
-      "Radon",
-      "Nitrogen",
-      "Hydrogen",
-      "Einsteinium",
-      "Oxygen",
-      "Water",
-      "Earth",
-      "Air",
-      "Lightning",
-    ];
-    // List of a bunch of base treasures
-    var treasure = [
-      "Ring",
-      "Gem",
-      "Stone",
-      "Necklace",
-      "Amulet",
-      "Sword",
-      "Greataxe",
-      "Greatsword",
-      "Rapier",
-      "Blaster Pistol",
-      "Raygun",
-      "Laser Rifle",
-      "Plasma Rifle",
-      "Cube",
-      "Sphere",
-      "Orb",
-      "Broach",
-      "Circlet",
-      "Coin",
-      "Sculpture",
-      "Crown"
-    ];
-    return adjective[randomNum(adjective.length)] + " " + treasure[randomNum(treasure.length)];
-  }
   // Functions
   // ---------
   // Will return a url parameter given the
@@ -113,10 +49,6 @@ var FATERATOR = (function(fateratorModule) {
       return uri + separator + key + "=" + value;
     }
   }
-  // Returns a number that is random within range
-  function randomNum(highNum) {
-    return Math.floor(Math.random() * parseInt(highNum));
-  }
   // Function that sets the HTML elements
   // using our createFantasyName function
   function renderName() {
@@ -127,7 +59,7 @@ var FATERATOR = (function(fateratorModule) {
     else {
       var fullName = fateratorModule.createFullName();
       nameElement.innerHTML += " " + fullName;
-      updateQueryStringParamater("chNm", fullName);
+      updateQueryStringParameter("chNm", fullName);
     }
   }
   // Function that will return an array of
@@ -168,42 +100,42 @@ var FATERATOR = (function(fateratorModule) {
       /*
       // Pick one to be our "best" approach, and actually
       // remove it from the array.
-      var approachIndex = randomNum(approaches.length);
+      var approachIndex = fateratorModule.randomNum(approaches.length);
       // Update the query string
       var queryStringApproach = approachIndex.toString() + "3";
       var bestApproach = {
         "boost": 3,
-        "approach": approaches.splice([randomNum(approaches.length)], 1)
+        "approach": approaches.splice([fateratorModule.randomNum(approaches.length)], 1)
       };
       var goodApproaches;
-      approachIndex = randomNum(approaches.length);
+      approachIndex = fateratorModule.randomNum(approaches.length);
       // Update the query string
       queryStringApproach += approachIndex.toString() + "2";
       goodApproaches[0] = {
         "boost": 2,
-        "approach": approaches.splice([randomNum(approaches.length)], 1)
+        "approach": approaches.splice([fateratorModule.randomNum(approaches.length)], 1)
       };
-      approachIndex = randomNum(approaches.length);
+      approachIndex = fateratorModule.randomNum(approaches.length);
       // Update the query string
       queryStringApproach += approachIndex.toString() + "2";
       goodApproaches[1] = {
         "boost": 2,
-        "approach": approaches.splice([randomNum(approaches.length)], 1)
+        "approach": approaches.splice([fateratorModule.randomNum(approaches.length)], 1)
       }
       var noviceApproaches;
-      approachIndex = randomNum(approaches.length);
+      approachIndex = fateratorModule.randomNum(approaches.length);
       // Update the query string
       queryStringApproach += approachIndex.toString() + "1";
       noviceApproaches[0] = {
         "boost": 1,
-        "approach": approaches.splice([randomNum(approaches.length)], 1)
+        "approach": approaches.splice([fateratorModule.randomNum(approaches.length)], 1)
       };
-      approachIndex = randomNum(approaches.length);
+      approachIndex = fateratorModule.randomNum(approaches.length);
       noviceApproaches[1] = {
         "boost": 1,
-        "approach": approaches.splice([randomNum(approaches.length)], 1)
+        "approach": approaches.splice([fateratorModule.randomNum(approaches.length)], 1)
       }
-      approachIndex = randomNum(approaches.length);
+      approachIndex = fateratorModule.randomNum(approaches.length);
       // Update the query string
       queryStringApproach += approachIndex.toString() + "0";
       var worstApproach = {
@@ -269,23 +201,23 @@ var FATERATOR = (function(fateratorModule) {
     }];
     // Equal 1/6th chance for each stunt
     // to be returned
-    if(randomNum(100) < 15) {
-      return quickStunts[randomNum(quickStunts.length)];
+    if(fateratorModule.randomNum(100) < 15) {
+      return quickStunts[fateratorModule.randomNum(quickStunts.length)];
     }
-    else if(randomNum(100) < 15) {
-      return flashyStunts[randomNum(flashyStunts.length)];
+    else if(fateratorModule.randomNum(100) < 15) {
+      return flashyStunts[fateratorModule.randomNum(flashyStunts.length)];
     }
-    else if(randomNum(100) < 15) {
-      return forcefulStunts[randomNum(forcefulStunts.length)];
+    else if(fateratorModule.randomNum(100) < 15) {
+      return forcefulStunts[fateratorModule.randomNum(forcefulStunts.length)];
     }
-    else if(randomNum(100) < 15) {
-      return carefulStunts[randomNum(carefulStunts.length)];
+    else if(fateratorModule.randomNum(100) < 15) {
+      return carefulStunts[fateratorModule.randomNum(carefulStunts.length)];
     }
-    else if(randomNum(100) < 15) {
-      return cleverStunts[randomNum(cleverStunts.length)];
+    else if(fateratorModule.randomNum(100) < 15) {
+      return cleverStunts[fateratorModule.randomNum(cleverStunts.length)];
     }
     else {
-      return sneakyStunts[randomNum(sneakyStunts.length)];
+      return sneakyStunts[fateratorModule.randomNum(sneakyStunts.length)];
     }
   }
   // Function that will render out a stunt
@@ -314,12 +246,12 @@ var FATERATOR = (function(fateratorModule) {
     ];
     // 75% chance that the trouble is a
     // quirk based trouble
-    if(randomNum(100) < 75) {
-      return personalQuirks[randomNum(personalQuirks.length)];
+    if(fateratorModule.randomNum(100) < 75) {
+      return personalQuirks[fateratorModule.randomNum(personalQuirks.length)];
     }
     // Otherwise, give us a mechanic-based trouble
     else {
-      return personalMechanics[randomNum(personalMechanics.length)];
+      return personalMechanics[fateratorModule.randomNum(personalMechanics.length)];
     }
   }
   // This function will draw out the trouble
@@ -331,19 +263,33 @@ var FATERATOR = (function(fateratorModule) {
   // Function that will create a generic
   // aspect and return it.
   function createAspect() {
+    // We'll return this.
+    var returnAspect = {};
     // Variables for this are defined within
     // Decide which array to return an element from
-    if(randomNum(100) < 25) {
-      return beliefs.splice(randomNum(beliefs.length), 1);
+    if(fateratorModule.randomNum(100) < 25) {
+      // We're using the items array, so 
+      // let's import that from our DATARATOR
+      var beliefs = FD.aspects.beliefs;
+      return beliefs.splice(fateratorModule.randomNum(beliefs.length), 1);
     }
-    else if(randomNum(100) < 25) {
-      return items.splice(randomNum(items.length), 1);
+    else if(fateratorModule.randomNum(100) < 25) {
+      // We're using the items array, so 
+      // let's import that from our DATARATOR
+      var items = FD.aspects.items;
+      return items.splice(fateratorModule.randomNum(items.length), 1);
     }
-    else if(randomNum(100) < 25) {
-      return relationships.splice(randomNum(relationships.length), 1);
+    else if(fateratorModule.randomNum(100) < 25) {
+      // We're using the items array, so 
+      // let's import that from our DATARATOR
+      var items = FD.aspects.relationships;
+      return relationships.splice(fateratorModule.randomNum(relationships.length), 1);
     }
     else {
-      return titles.splice(randomNum(titles.length), 1);
+      // We're using the items array, so 
+      // let's import that from our DATARATOR
+      var items = FD.aspects.titles;
+      return titles.splice(fateratorModule.randomNum(titles.length), 1);
     }
   }
   // Function to render out the remaining aspects
@@ -376,12 +322,12 @@ var FATERATOR = (function(fateratorModule) {
       "Bounty Hunter"
     ];
     var aspectDiv = document.getElementsByClassName("high-aspect")[0];
-    aspectDiv.innerHTML += " " + jobs[randomNum(jobs.length)] + ", " + createAspect();
+    aspectDiv.innerHTML += " " + jobs[fateratorModule.randomNum(jobs.length)] + ", " + createAspect();
   }
   // Give back the module which has the
   // init function inside
   return fateratorModule;
-}(FATERATOR || {})); // Augmented Immediately Invoked Function Expression
+}(FATERATOR)); // Augmented Immediately Invoked Function Expression
 
 // Wait until the document is ready, then
 // load our init function that we have due
