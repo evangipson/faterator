@@ -7,6 +7,7 @@ var FATERATOR = (function(fateratorModule) {
     fateratorModule.DATA = {
         // The types of data we have
         "names": {},
+        "treasures": {},
         "aspects": {},
     };
     // Define our names first, that's the most
@@ -165,6 +166,188 @@ var FATERATOR = (function(fateratorModule) {
             },
         ]
     };
+    // Also should define the pieces of our treasure for
+    // our generator
+    fateratorModule.DATA.treasures = {
+        // List of a bunch of treasure-y adjectives
+        "adjective" : [
+            { 
+                "value": "Black",
+                "guid": "CA8DDgcMCQo"
+            },
+            { 
+                "value": "Obsidian",
+                "guid": "BQ4BDgUPCg4"
+            },
+            { 
+                "value": "Emerald",
+                "guid": "AAsFDQUHAQ0"
+            },
+            { 
+                "value": "Malachite",
+                "guid": "CQ8EBAUDDww"
+            },
+            { 
+                "value": "Jade",
+                "guid": "DwoIBgUGCQg"
+            },
+            { 
+                "value": "Tiger's Eye",
+                "guid": "CAwHCwgJCwk"
+            },
+            { 
+                "value": "Onyx",
+                "guid": "Dg0DAAUBCgU"
+            },
+            { 
+                "value": "Ruby",
+                "guid": "BQEDDAQEBQw"
+            },
+            { 
+                "value": "Sapphire",
+                "guid": "DQoEBw4BBA4"
+            },
+            { 
+                "value": "Diamond",
+                "guid": "DQgECAINDgg"
+            },
+            { 
+                "value": "Plutonium",
+                "guid": "AA0LAQQADAM"
+            },
+            { 
+                "value": "Xenon",
+                "guid": "AAMHAgUJDgg"
+            },
+            { 
+                "value": "Neon",
+                "guid": "BQcFBQIJDQM"
+            },
+            { 
+                "value": "Radon",
+                "guid": "AwECDgUAAww"
+            },
+            { 
+                "value": "Nitrogen",
+                "guid": "DgQFBAkLDwQ"
+            },
+            { 
+                "value": "Hydrogen",
+                "guid": "CQsPBgoJDgk"
+            },
+            { 
+                "value": "Einsteinium",
+                "guid": "BQIFAA0DBQ4"
+            },
+            { 
+                "value": "Oxygen",
+                "guid": "AQgIAgsMDg0"
+            },
+            { 
+                "value": "Water",
+                "guid": "DgMABAsMBgY"
+            },
+            { 
+                "value": "Earth",
+                "guid": "BAcLDQEDCgk"
+            },
+            { 
+                "value": "Air",
+                "guid": "BQQDDw8CAAQ"
+            },
+            { 
+                "value": "Lightning",
+                "guid": "AQULAgMBCww"
+            }
+        ],
+        // List of a bunch of base treasures
+        "noun" : [
+            { 
+                "value": "Ring",
+                "guid": "CgEDAAcJAwY"
+            },
+            { 
+                "value": "Gem",
+                "guid": "BQ0LDgwGBwU"
+            },
+            { 
+                "value": "Stone",
+                "guid": "CgoMDg0EDwM"
+            },
+            { 
+                "value": "Necklace",
+                "guid": "CgkLDQkCCwA"
+            },
+            { 
+                "value": "Amulet",
+                "guid": "CQ0FDwEHAgs"
+            },
+            { 
+                "value": "Sword",
+                "guid": "DgkIDwAACAI"
+            },
+            { 
+                "value": "Greataxe",
+                "guid": "BgkFDAsHDwY"
+            },
+            { 
+                "value": "Greatsword",
+                "guid": "DQcMCAoOCg4"
+            },
+            { 
+                "value": "Rapier",
+                "guid": "DgQGCwYNAQg"
+            },
+            {
+                "value": "Blaster Pistol",
+                "guid": "BQ8CBgIACAY"
+            },
+            { 
+                "value": "Raygun",
+                "guid": "DAoDBwIHBwU"
+            },
+            { 
+                "value": "Laser Rifle",
+                "guid": "DQEOBQINDQg"
+            },
+            { 
+                "value": "Plasma Rifle",
+                "guid": "DAsKCQUKCwA"
+            },
+            { 
+                "value": "Cube",
+                "guid": "BgUCBwEKCAU"
+            },
+            { 
+                "value": "Sphere",
+                "guid": "CgEHAgINBgg"
+            },
+            { 
+                "value": "Orb",
+                "guid": "DQsNBAYJBAc"
+            },
+            { 
+                "value": "Broach",
+                "guid": "DA4IBwEHAAw"
+            },
+            { 
+                "value": "Circlet",
+                "guid": "DAoKCQgDCQ4"
+            },
+            { 
+                "value": "Coin",
+                "guid": "AwQPCgcKDA0"
+            },
+            { 
+                "value": "Sculpture",
+                "guid": "CQQBBQgBDg8"
+            },
+            { 
+                "value": "Crown",
+                "guid": "BAcGAgwFCws"
+            }
+        ]
+    };
     // Functions I need to generate stuff beyond names.
     // ------------------------------------------------
     // Returns a number that is random within range
@@ -191,56 +374,11 @@ var FATERATOR = (function(fateratorModule) {
     // Function that will create ONE mythical
     // or cool-sounding treasure
     fateratorModule.createTreasure = function() {
-        // List of a bunch of treasure-y adjectives
-        var adjective = [
-        "Black",
-        "Obsidian",
-        "Emerald",
-        "Malachite",
-        "Jade",
-        "Tiger's Eye",
-        "Onyx",
-        "Ruby",
-        "Sapphire",
-        "Diamond",
-        "Plutonium",
-        "Xenon",
-        "Neon",
-        "Radon",
-        "Nitrogen",
-        "Hydrogen",
-        "Einsteinium",
-        "Oxygen",
-        "Water",
-        "Earth",
-        "Air",
-        "Lightning",
-        ];
-        // List of a bunch of base treasures
-        var treasure = [
-        "Ring",
-        "Gem",
-        "Stone",
-        "Necklace",
-        "Amulet",
-        "Sword",
-        "Greataxe",
-        "Greatsword",
-        "Rapier",
-        "Blaster Pistol",
-        "Raygun",
-        "Laser Rifle",
-        "Plasma Rifle",
-        "Cube",
-        "Sphere",
-        "Orb",
-        "Broach",
-        "Circlet",
-        "Coin",
-        "Sculpture",
-        "Crown"
-        ];
-        return adjective[fateratorModule.randomNum(adjective.length)] + " " + treasure[fateratorModule.randomNum(treasure.length)];
+        // Import our data from our DATA object
+        treasureAdjective = fateratorModule.DATA.treasures.adjective;
+        treasure = fateratorModule.DATA.treasures.noun;
+        // Return some configuration of that data
+        return treasureAdjective[fateratorModule.randomNum(treasureAdjective.length)].value + " " + treasure[fateratorModule.randomNum(treasure.length)].value;
     };
     // Now we can define our aspects since our names
     // and seed functions are declared

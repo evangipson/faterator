@@ -241,8 +241,8 @@ var FATERATOR = (function(fateratorModule) {
       "Reckless"
     ];
     var personalMechanics = [
-      "Compelled by their " + createTreasure(),
-      "Has a " + createTreasure() + " stuck on their body",
+      "Compelled by their " + fateratorModule.createTreasure(),
+      "Has a " + fateratorModule.createTreasure() + " stuck on their body",
     ];
     // 75% chance that the trouble is a
     // quirk based trouble
