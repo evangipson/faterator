@@ -5,18 +5,27 @@ var FATERATOR = (function(fateratorModule) {
   // Pull in the DATA module
   // "Faterator Data"
   FD = fateratorModule.DATA;
+  // We also need a shared variable
+  // for setting our hash after character creation
+  var charHash = "";
   // "Public" Functions (Functions that data.js needs)
   // -------------------------------------------------
   // Init function to handle all the
   // initialization required to return
   // the module
   fateratorModule.init = function() {
+    // Render all of our data out to HTML
     renderName();
     renderHighAspect();
     renderTrouble();
     renderApproaches();
     renderAspects();
     renderStunt();
+    // If we don't have a hash already
+    if(window.location.hash === "") {
+      // Let's apply the character hash!
+      applyHash();
+    }
   };
   // Functions
   // ---------
@@ -64,6 +73,20 @@ var FATERATOR = (function(fateratorModule) {
         return url;
     }
   }
+  // Function that will update the window.location.hash
+  // and takes in a key and value to set those.
+  // It's not very defensively coded so don't abuse it :)
+  // NOTE: Please call AFTER sanitising with updateQueryString
+  function updateHashParam(key, value) {
+    // Set the URL of the browser to the updated query string
+    // to the "query" part of the URL returned by UpdateQueryString()
+    charHash = charHash + "&" + updateQueryString(key, value, location.hash).split('?')[1];
+  }
+  // Function to be called from init
+  // NOTE: Please don't call this function elsewhere.
+  function applyHash() {
+    location.hash = "?" + charHash;
+  }
   // Function that sets the HTML elements
   // using our createFantasyName function
   function renderName() {
@@ -78,9 +101,7 @@ var FATERATOR = (function(fateratorModule) {
     else {
       var fullName = fateratorModule.createFullName();
       nameElement.innerHTML += " " + fullName;
-      // Set the URL of the browser to the updated query string
-      // to the "query" part of the URL returned by UpdateQueryString()
-      location.hash = "?" + updateQueryString("chNm", fullName).split('?')[1];
+      updateHashParam("chNm", fullName);
     }
   }
   // Function that will return an array of
@@ -322,26 +343,49 @@ var FATERATOR = (function(fateratorModule) {
   // Render out the high aspect we've
   // created for the character
   function renderHighAspect() {
-    var jobs = [
-      "Treasure Hunter",
-      "Smuggler",
-      "Trader",
-      "Biochemist",
-      "Engineer",
-      "Ship Mechanic",
-      "Shophand",
-      "Lightsmith",
-      "Laser Operator",
-      "Pirate",
-      "Bounty Hunter"
-    ];
+    /* 
+
+
+    // Pull in any query string variables we have
+    var savedCharacterName = getParameterByName("chNm");
+    // Pull in HTML element for the name
+    var nameElement = document.getElementsByClassName("name")[0];
+    // If we have a saved character, let's use the query string parameter
+    if(savedCharacterName) {
+      nameElement.innerHTML += " " + savedCharacterName;
+    }
+    else {
+      var fullName = fateratorModule.createFullName();
+      nameElement.innerHTML += " " + fullName;
+      // Set the URL of the browser to the updated query string
+      // to the "query" part of the URL returned by UpdateQueryString()
+      location.hash = "?" + updateQueryString("chNm", fullName).split('?')[1];
+    }
+
+    */
+    // Pull in high aspect query string
+    var savedHighAspect = getParameterByName("hA");
     var aspectDiv = document.getElementsByClassName("high-aspect")[0];
-    aspectDiv.innerHTML += " " + jobs[fateratorModule.randomNum(jobs.length)] + ", " + createAspect();
+    if(savedHighAspect) {
+      // find by guid??
+      var targetTitle = FD.aspects.highAspectTitles.find(function(e) {
+        return e.guid === savedHighAspect;
+      });
+      // Update the HTML element with the value of the guid
+      aspectDiv.innerHTML += " " + targetTitle.value + ", " + createAspect();
+    }
+    else {
+      // We need an index for our high aspect
+      var highAspectIndex = fateratorModule.randomNum(FD.aspects.highAspectTitles.length);
+      aspectDiv.innerHTML += " " + FD.aspects.highAspectTitles[highAspectIndex].value + ", " + createAspect();
+      //updateHashParam("hA", FD.aspects.highAspectTitles[highAspectIndex].guid);
+      updateHashParam("hA", FD.aspects.highAspectTitles[highAspectIndex].guid);
+    }
   }
   // Give back the module which has the
   // init function inside
   return fateratorModule;
-}(FATERATOR)); // Augmented Immediately Invoked Function Expression
+}(FATERATOR)); // Augmented Function Expression
 
 // Wait until the document is ready, then
 // load our init function that we have due

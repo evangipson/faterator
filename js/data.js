@@ -383,6 +383,53 @@ var FATERATOR = (function(fateratorModule) {
     // Now we can define our aspects since our names
     // and seed functions are declared
     fateratorModule.DATA.aspects = {
+        // High Aspect Titles
+        "highAspectTitles" : [
+            {
+                "value" : "Treasure Hunter",
+                "guid": "CwkHCgsEDA0"
+            },
+            {
+                "value" : "Smuggler",
+                "guid": "Bw0NCQgCDgE"
+            },
+            {
+                "value" : "Trader",
+                "guid": "Aw0MBAEPAAE"
+            },
+            {
+                "value" : "Biochemist",
+                "guid": "DQcDDAADDAE"
+            },
+            {
+                "value" : "Engineer",
+                "guid": "AgMABAQKCwQ"
+            },
+            {
+                "value" : "Ship Mechanic",
+                "guid": "AwMJDg4JBAo"
+            },
+            {
+                "value" : "Shophand",
+                "guid": "BA4CAwMADQo"
+            },
+            {
+                "value" : "Physicist",
+                "guid": "BQwHCwgNBQU"
+            },
+            {
+                "value" : "Laser Operator",
+                "guid": "CAEMBQEIDg4"
+            },
+            {
+                "value" : "Pirate",
+                "guid": "Dg8HDAgFAQo"
+            },
+            {
+                "value" : "Bounty Hunter",
+                "guid": "AQEBBw0KCAM"
+            }
+        ],
         // Player beliefs
         "beliefs" : [
             {
@@ -514,4 +561,4 @@ var FATERATOR = (function(fateratorModule) {
     };
     // Give back our module object
     return fateratorModule;
-}(FATERATOR || {}));
+}(FATERATOR || {})); // Loosely Augmented Function Expression
