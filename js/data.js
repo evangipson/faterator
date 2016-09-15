@@ -383,53 +383,6 @@ var FATERATOR = (function(fateratorModule) {
     // Now we can define our aspects since our names
     // and seed functions are declared
     fateratorModule.DATA.aspects = {
-        // High Aspect Titles
-        "highAspectTitles" : [
-            {
-                "value" : "Treasure Hunter",
-                "guid": "CwkHCgsEDA0"
-            },
-            {
-                "value" : "Smuggler",
-                "guid": "Bw0NCQgCDgE"
-            },
-            {
-                "value" : "Trader",
-                "guid": "Aw0MBAEPAAE"
-            },
-            {
-                "value" : "Biochemist",
-                "guid": "DQcDDAADDAE"
-            },
-            {
-                "value" : "Engineer",
-                "guid": "AgMABAQKCwQ"
-            },
-            {
-                "value" : "Ship Mechanic",
-                "guid": "AwMJDg4JBAo"
-            },
-            {
-                "value" : "Shophand",
-                "guid": "BA4CAwMADQo"
-            },
-            {
-                "value" : "Physicist",
-                "guid": "BQwHCwgNBQU"
-            },
-            {
-                "value" : "Laser Operator",
-                "guid": "CAEMBQEIDg4"
-            },
-            {
-                "value" : "Pirate",
-                "guid": "Dg8HDAgFAQo"
-            },
-            {
-                "value" : "Bounty Hunter",
-                "guid": "AQEBBw0KCAM"
-            }
-        ],
         // Player beliefs
         "beliefs" : [
             {
@@ -557,8 +510,97 @@ var FATERATOR = (function(fateratorModule) {
                 "value" : "Theif",
                 "guid": "CQAEDw0OCwo"
             }
-        ],
+        ]
     };
+    // Advanced Creation Functions
+    // ---------------------------
+    // Function that will create a generic
+    // aspect and return it.
+    fateratorModule.createAspect = function() {
+        // We'll return this.
+        var returnAspect;
+        // Variables for this are defined within
+        // Decide which array to return an element from
+        if(fateratorModule.randomNum(100) < 25) {
+            // We're using the items array, so 
+            // let's import that from our DATARATOR
+            var beliefs = fateratorModule.DATA.aspects.beliefs;
+            returnAspect = beliefs.splice(fateratorModule.randomNum(beliefs.length), 1)[0];
+            return returnAspect;
+        }
+        else if(fateratorModule.randomNum(100) < 25) {
+            // We're using the items array, so 
+            // let's import that from our DATARATOR
+            var items = fateratorModule.DATA.aspects.items;
+            returnAspect = items.splice(fateratorModule.randomNum(items.length), 1)[0];
+            return returnAspect;
+        }
+        else if(fateratorModule.randomNum(100) < 25) {
+            // We're using the items array, so 
+            // let's import that from our DATARATOR
+            var relationships = fateratorModule.DATA.aspects.relationships;
+            returnAspect = relationships.splice(fateratorModule.randomNum(relationships.length), 1)[0];
+            return returnAspect;
+        }
+        else {
+            // We're using the items array, so 
+            // let's import that from our DATARATOR
+            var titles = fateratorModule.DATA.aspects.titles;
+            returnAspect = titles.splice(fateratorModule.randomNum(titles.length), 1)[0];
+            return returnAspect;
+        }
+    };
+    // Advanced Data Objects 
+    fateratorModule.DATA.aspects.highAspectTitles = [
+        {
+            "value" : "Treasure Hunter",
+            "guid": "CwkHCgsEDA0"
+        },
+        {
+            "value" : "Smuggler",
+            "guid": "Bw0NCQgCDgE"
+        },
+        {
+            "value" : "Trader",
+            "guid": "Aw0MBAEPAAE"
+        },
+        {
+            "value" : "Biochemist",
+            "guid": "DQcDDAADDAE"
+        },
+        {
+            "value" : "Engineer",
+            "guid": "AgMABAQKCwQ"
+        },
+        {
+            "value" : "Ship Mechanic",
+            "guid": "AwMJDg4JBAo"
+        },
+        {
+            "value" : "Shophand",
+            "guid": "BA4CAwMADQo"
+        },
+        {
+            "value" : "Physicist",
+            "guid": "BQwHCwgNBQU"
+        },
+        {
+            "value" : "Laser Operator",
+            "guid": "CAEMBQEIDg4"
+        },
+        {
+            "value" : "Pirate",
+            "guid": "Dg8HDAgFAQo"
+        },
+        {
+            "value" : "Bounty Hunter",
+            "guid": "AQEBBw0KCAM"
+        }
+    ];
+    // Append a "aspect" to each high aspect title
+    fateratorModule.DATA.aspects.highAspectTitles.forEach(function(element) {
+        element.aspect = fateratorModule.createAspect().guid;
+    });
     // Give back our module object
     return fateratorModule;
 }(FATERATOR || {})); // Loosely Augmented Function Expression

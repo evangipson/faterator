@@ -13,7 +13,9 @@ var FATERATOR = (function(fateratorModule) {
     // Character Name
     "chNm",
     // High Aspect
-    "hA"
+    "hA",
+    // High Aspect - Aspect
+    "hAa"
   ];
   // "Public" Functions (Functions that data.js needs)
   // -------------------------------------------------
@@ -82,13 +84,16 @@ var FATERATOR = (function(fateratorModule) {
   // It's not very defensively coded so don't abuse it :)
   // NOTE: Please call AFTER sanitising with updateQueryString
   function updateHashParam(key, value) {
-    // Sanitize character hash to make sure it's valid
-    // and only update the hash if it's a valid key.
-    for (var validQueryString = 0; validQueryString < validQueryStrings.length; validQueryString++) {
-      // Set the URL of the browser to the updated query string
-      // to the "query" part of the URL returned by UpdateQueryString()
-      if(key == validQueryStrings[validQueryString]) {
-        charHash += "&" + updateQueryString(key, value, location.hash.replace("#","")).split('?')[1];
+    // If we don't have an key in the hash already
+    if(location.hash.indexOf(key) === -1) {
+      // Sanitize character hash to make sure it's valid
+      // and only update the hash if it's a valid key.
+      for (var validQueryString = 0; validQueryString < validQueryStrings.length; validQueryString++) {
+        // Set the URL of the browser to the updated query string
+        // to the "query" part of the URL returned by UpdateQueryString()
+        if(key == validQueryStrings[validQueryString]) {
+          charHash += "&" + updateQueryString(key, value, location.hash.replace("#","")).split('?')[1];
+        }
       }
     }
   }
@@ -137,9 +142,6 @@ var FATERATOR = (function(fateratorModule) {
     else {
       var fullName = fateratorModule.createFullName();
       nameElement.innerHTML += " " + fullName;
-    }
-    // If we don't have a chNM already, update the param
-    if(location.hash.indexOf("chNm") === -1) {
       updateHashParam("chNm", fullName);
     }
   }
@@ -330,42 +332,6 @@ var FATERATOR = (function(fateratorModule) {
     var troubleDiv = document.getElementsByClassName("trouble")[0];
     troubleDiv.innerHTML += " " + createTrouble();
   }
-  // Function that will create a generic
-  // aspect and return it.
-  function createAspect() {
-    // We'll return this.
-    var returnAspect;
-    // Variables for this are defined within
-    // Decide which array to return an element from
-    if(fateratorModule.randomNum(100) < 25) {
-      // We're using the items array, so 
-      // let's import that from our DATARATOR
-      var beliefs = FD.aspects.beliefs;
-      returnAspect = beliefs.splice(fateratorModule.randomNum(beliefs.length), 1)[0];
-      return returnAspect.value;
-    }
-    else if(fateratorModule.randomNum(100) < 25) {
-      // We're using the items array, so 
-      // let's import that from our DATARATOR
-      var items = FD.aspects.items;
-      returnAspect = items.splice(fateratorModule.randomNum(items.length), 1)[0];
-      return returnAspect.value;
-    }
-    else if(fateratorModule.randomNum(100) < 25) {
-      // We're using the items array, so 
-      // let's import that from our DATARATOR
-      var relationships = FD.aspects.relationships;
-      returnAspect = relationships.splice(fateratorModule.randomNum(relationships.length), 1)[0];
-      return returnAspect.value;
-    }
-    else {
-      // We're using the items array, so 
-      // let's import that from our DATARATOR
-      var titles = FD.aspects.titles;
-      returnAspect = titles.splice(fateratorModule.randomNum(titles.length), 1)[0];
-      return returnAspect.value;
-    }
-  }
   // Function to render out the remaining aspects
   function renderAspects() {
     var numberOfAspects = 3;
@@ -374,56 +340,61 @@ var FATERATOR = (function(fateratorModule) {
     var tempListItem = {};
     for(var i = 0; i < numberOfAspects; i++) {
       tempListItem = document.createElement("li");
-      tempListItem.appendChild(document.createTextNode(createAspect()));
+      tempListItem.appendChild(document.createTextNode(fateratorModule.createAspect().value));
       nameListElement.appendChild(tempListItem);
     }
     aspectDiv.appendChild(nameListElement);
   }
+  // This function will locate an aspect
+  // given a guid - returns false if no
+  // match found
+  function findAspect(guid) {
+    // Storage for our return aspect
+    var retAspect = false;
+    // Find our item via guid by first
+    // searching through all aspects for
+    // the guid carried in
+    for(var aspect in FD.aspects) {
+      // Make sure we arne't operating on a prototype property
+      if(!FD.aspects.hasOwnProperty(aspect)) continue;
+      retAspect = FD.aspects[aspect].find(function(e) {
+        return e.guid === guid;
+      });
+      console.log("IN FINDASPECT: " + retAspect);
+      if(retAspect !== false) {
+        return retAspect;
+      }
+    }
+    return false;
+  }
   // Render out the high aspect we've
   // created for the character
   function renderHighAspect() {
-    /* 
-
-
-    // Pull in any query string variables we have
-    var savedCharacterName = getParameterByName("chNm");
-    // Pull in HTML element for the name
-    var nameElement = document.getElementsByClassName("name")[0];
-    // If we have a saved character, let's use the query string parameter
-    if(savedCharacterName) {
-      nameElement.innerHTML += " " + savedCharacterName;
-    }
-    else {
-      var fullName = fateratorModule.createFullName();
-      nameElement.innerHTML += " " + fullName;
-    }
-
-    */
-    // Pull in high aspect query string
+    // Pull in high aspect query strings
     var savedHighAspect = getParameterByName("hA");
+    var savedHighAspectAspect = getParameterByName("hAa");
+    // And also pull in the high aspect HTML element itself
     var aspectDiv = document.getElementsByClassName("high-aspect")[0];
+    // Do we have valid hash data?
     if(savedHighAspect) {
-      // find by guid??
+      // Find our target high aspect via guid
       var targetTitle = FD.aspects.highAspectTitles.find(function(e) {
         return e.guid === savedHighAspect;
       });
-      // Update the HTML element with the value of the guid
-      aspectDiv.innerHTML += " " + targetTitle.value + ", " + createAspect();
-      // If we don't have an "hA" in the hash already
-      if(location.hash.indexOf("hA") === -1) {
-        // Update our hash param so reloads work
-        updateHashParam("hA", targetTitle.guid);
-      }
+      // I am assuming savedHighAspectAspect will be there, Because
+      // each high aspect has an associated aspect, as defined in data.js,
+      // Also update the HTML element with the value of the guid
+      aspectDiv.innerHTML += " " + targetTitle.value + ", " + findAspect(savedHighAspectAspect).value;
     }
     else {
       // We need an index for our high aspect
       var highAspectIndex = fateratorModule.randomNum(FD.aspects.highAspectTitles.length);
-      aspectDiv.innerHTML += " " + FD.aspects.highAspectTitles[highAspectIndex].value + ", " + createAspect();
-      // If we don't have an "hA" in the hash already
-      if(location.hash.indexOf("hA") !== -1) {
-        // Update the hash param so reloads work
-        updateHashParam("hA", FD.aspects.highAspectTitles[highAspectIndex].guid);
-      }
+      // Also we're going to use a new aspect
+      var newAspect = fateratorModule.createAspect();
+      aspectDiv.innerHTML += " " + FD.aspects.highAspectTitles[highAspectIndex].value + ", " + newAspect.value;
+      // Update the hash params so reloads work
+      updateHashParam("hA", FD.aspects.highAspectTitles[highAspectIndex].guid);
+      updateHashParam("hAa", newAspect.guid);
     }
   }
   // Give back the module which has the
