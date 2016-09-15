@@ -8,6 +8,13 @@ var FATERATOR = (function(fateratorModule) {
   // We also need a shared variable
   // for setting our hash after character creation
   var charHash = "";
+  // Array that contains all valid query strings
+  var validQueryStrings = [
+    // Character Name
+    "chNm",
+    // High Aspect
+    "hA"
+  ];
   // "Public" Functions (Functions that data.js needs)
   // -------------------------------------------------
   // Init function to handle all the
@@ -21,11 +28,8 @@ var FATERATOR = (function(fateratorModule) {
     renderApproaches();
     renderAspects();
     renderStunt();
-    // If we don't have a hash already
-    if(window.location.hash === "") {
-      // Let's apply the character hash!
-      applyHash();
-    }
+    // Let's apply the character hash!
+    applyHash();
   };
   // Functions
   // ---------
@@ -78,14 +82,46 @@ var FATERATOR = (function(fateratorModule) {
   // It's not very defensively coded so don't abuse it :)
   // NOTE: Please call AFTER sanitising with updateQueryString
   function updateHashParam(key, value) {
-    // Set the URL of the browser to the updated query string
-    // to the "query" part of the URL returned by UpdateQueryString()
-    charHash = charHash + "&" + updateQueryString(key, value, location.hash).split('?')[1];
+    // Sanitize character hash to make sure it's valid
+    // and only update the hash if it's a valid key.
+    for (var validQueryString = 0; validQueryString < validQueryStrings.length; validQueryString++) {
+      // Set the URL of the browser to the updated query string
+      // to the "query" part of the URL returned by UpdateQueryString()
+      if(key == validQueryStrings[validQueryString]) {
+        charHash += "&" + updateQueryString(key, value, location.hash.replace("#","")).split('?')[1];
+      }
+    }
   }
+  // Function to sanitize (get rid of unwanted elements)
+  // the query string
+  /* function sanitizeQS() {
+    var charHashElements = charHash.split("&");
+    var counter = 0;
+    // For every element split by the &
+    for(var charHashElement = 0; charHashElement < charHashElements.length; charHashElement++) {
+      for(var validQueryString = 0; validQueryString < validQueryStrings.length; validQueryString++) {
+        // reset our counter
+        counter = 0;
+        // Increment our counter every time we DON'T hit a valid query string
+        if(charHashElements[charHashElement].indexOf(validQueryStrings[validQueryString]) === -1) {
+          counter++;
+        }
+      }
+      // If we've not hit ANY valid Query strings...
+      if(counter === validQueryStrings.length) {
+        charHashElements.splice(charHashElement, 1);
+      }
+    }
+    charHash = charHashElements.join("&");
+  } */
   // Function to be called from init
   // NOTE: Please don't call this function elsewhere.
   function applyHash() {
-    location.hash = "?" + charHash;
+    // sanitizeQS();
+    // Now set it to character hash.
+    if(charHash !== "") {
+      location.hash = "?" + charHash;
+    }
   }
   // Function that sets the HTML elements
   // using our createFantasyName function
@@ -101,6 +137,9 @@ var FATERATOR = (function(fateratorModule) {
     else {
       var fullName = fateratorModule.createFullName();
       nameElement.innerHTML += " " + fullName;
+    }
+    // If we don't have a chNM already, update the param
+    if(location.hash.indexOf("chNm") === -1) {
       updateHashParam("chNm", fullName);
     }
   }
@@ -357,9 +396,6 @@ var FATERATOR = (function(fateratorModule) {
     else {
       var fullName = fateratorModule.createFullName();
       nameElement.innerHTML += " " + fullName;
-      // Set the URL of the browser to the updated query string
-      // to the "query" part of the URL returned by UpdateQueryString()
-      location.hash = "?" + updateQueryString("chNm", fullName).split('?')[1];
     }
 
     */
@@ -373,13 +409,21 @@ var FATERATOR = (function(fateratorModule) {
       });
       // Update the HTML element with the value of the guid
       aspectDiv.innerHTML += " " + targetTitle.value + ", " + createAspect();
+      // If we don't have an "hA" in the hash already
+      if(location.hash.indexOf("hA") === -1) {
+        // Update our hash param so reloads work
+        updateHashParam("hA", targetTitle.guid);
+      }
     }
     else {
       // We need an index for our high aspect
       var highAspectIndex = fateratorModule.randomNum(FD.aspects.highAspectTitles.length);
       aspectDiv.innerHTML += " " + FD.aspects.highAspectTitles[highAspectIndex].value + ", " + createAspect();
-      //updateHashParam("hA", FD.aspects.highAspectTitles[highAspectIndex].guid);
-      updateHashParam("hA", FD.aspects.highAspectTitles[highAspectIndex].guid);
+      // If we don't have an "hA" in the hash already
+      if(location.hash.indexOf("hA") !== -1) {
+        // Update the hash param so reloads work
+        updateHashParam("hA", FD.aspects.highAspectTitles[highAspectIndex].guid);
+      }
     }
   }
   // Give back the module which has the
