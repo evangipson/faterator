@@ -369,7 +369,7 @@ var FATERATOR = (function(fateratorModule) {
       tempListItem = document.createElement("li");
       tempListItem.appendChild(document.createTextNode(tempAspect.value));
       nameListElement.appendChild(tempListItem);
-      updateHashParam("a"+(i+1), tempAspect.guid);
+      //updateHashParam("a"+(i+1), tempAspect.guid);
       //updateHashParam("a"+(i+1), tempAspect.meta); // or name or whatever fuck you
     }
     aspectDiv.appendChild(nameListElement);
