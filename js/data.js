@@ -386,6 +386,7 @@ var FATERATOR = (function(fateratorModule) {
         // Player beliefs
         "beliefs" : [
             {
+                //"meta" : fateratorModule.createFantasyName().value,
                 "value" : "The only good " + fateratorModule.createFantasyName() + " is a dead one",
                 "guid": "CwgGBAkLCAo"
             },
@@ -525,28 +526,28 @@ var FATERATOR = (function(fateratorModule) {
             // We're using the items array, so 
             // let's import that from our DATARATOR
             var beliefs = fateratorModule.DATA.aspects.beliefs;
-            returnAspect = beliefs.splice(fateratorModule.randomNum(beliefs.length), 1)[0];
+            returnAspect = beliefs[fateratorModule.randomNum(beliefs.length)];
             return returnAspect;
         }
         else if(fateratorModule.randomNum(100) < 25) {
             // We're using the items array, so 
             // let's import that from our DATARATOR
             var items = fateratorModule.DATA.aspects.items;
-            returnAspect = items.splice(fateratorModule.randomNum(items.length), 1)[0];
+            returnAspect = items[fateratorModule.randomNum(items.length)];
             return returnAspect;
         }
         else if(fateratorModule.randomNum(100) < 25) {
             // We're using the items array, so 
             // let's import that from our DATARATOR
             var relationships = fateratorModule.DATA.aspects.relationships;
-            returnAspect = relationships.splice(fateratorModule.randomNum(relationships.length), 1)[0];
+            returnAspect = relationships[fateratorModule.randomNum(relationships.length)];
             return returnAspect;
         }
         else {
             // We're using the items array, so 
             // let's import that from our DATARATOR
             var titles = fateratorModule.DATA.aspects.titles;
-            returnAspect = titles.splice(fateratorModule.randomNum(titles.length), 1)[0];
+            returnAspect = titles[fateratorModule.randomNum(titles.length)];
             return returnAspect;
         }
     };

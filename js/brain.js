@@ -15,7 +15,18 @@ var FATERATOR = (function(fateratorModule) {
     // High Aspect
     "hA",
     // High Aspect - Aspect
-    "hAa"
+    "hAa",
+    // aspects in the format:
+    // a<n>
+    // a<n>m (where "m" is metadata)
+    // each aspect gets 1 metadata field
+    // which will be optional
+    "a1",
+    "a1m",
+    "a2",
+    "a2m",
+    "a3",
+    "a3m"
   ];
   // "Public" Functions (Functions that data.js needs)
   // -------------------------------------------------
@@ -334,14 +345,32 @@ var FATERATOR = (function(fateratorModule) {
   }
   // Function to render out the remaining aspects
   function renderAspects() {
+    // Pull in any query string variables we have
+    var firstAspect = getParameterByName("a1");
+    // ASSUMPTION: If we have one aspect, we have 'em all
+    // please don't fuck with urls people
+    if(firstAspect) {
+      // Get the rest of them if we have the first one
+      var firstAspectMeta = getParameterByName("a1m");
+      var secondAspect = getParameterByName("a2");
+      var secondAspectMeta = getParameterByName("a2m");
+      var thirdAspect = getParameterByName("a3");
+      var thirdAspectMeta = getParameterByName("a3m");
+      // TODO: Now fill in the character sheet
+
+    }
     var numberOfAspects = 3;
     var aspectDiv = document.getElementsByClassName("aspects")[0];
     var nameListElement = document.createElement("ul");
     var tempListItem = {};
+    var tempAspect = {};
     for(var i = 0; i < numberOfAspects; i++) {
+      tempAspect = fateratorModule.createAspect();
       tempListItem = document.createElement("li");
-      tempListItem.appendChild(document.createTextNode(fateratorModule.createAspect().value));
+      tempListItem.appendChild(document.createTextNode(tempAspect.value));
       nameListElement.appendChild(tempListItem);
+      updateHashParam("a"+(i+1), tempAspect.guid);
+      //updateHashParam("a"+(i+1), tempAspect.meta); // or name or whatever fuck you
     }
     aspectDiv.appendChild(nameListElement);
   }
@@ -351,20 +380,26 @@ var FATERATOR = (function(fateratorModule) {
   function findAspect(guid) {
     // Storage for our return aspect
     var retAspect = false;
+    var e = {};
     // Find our item via guid by first
     // searching through all aspects for
     // the guid carried in
     for(var aspect in FD.aspects) {
-      // Make sure we arne't operating on a prototype property
-      if(!FD.aspects.hasOwnProperty(aspect)) continue;
-      retAspect = FD.aspects[aspect].find(function(e) {
-        return e.guid === guid;
-      });
-      console.log("IN FINDASPECT: " + retAspect);
-      if(retAspect !== false) {
-        return retAspect;
+      //console.log("IN FINDASPECT: " + retAspect, aspect + " and the length of the array is " + FD.aspects[aspect].length);
+      for(var i = 0; i < FD.aspects[aspect].length; i++) {
+        var e = FD.aspects[aspect][i];
+        //console.log("Comparing " + e.value + " guid: " + e.guid + " with " + guid + " .... " );
+        if(e.guid === guid) {
+          retAspect = e;
+        };
+        if(retAspect.guid === guid) {
+          //console.log("returning! found " + retAspect.value);
+          return retAspect;
+        }
       }
     }
+    // If we haven't hit anything yet
+    // we are safe to return fasle
     return false;
   }
   // Render out the high aspect we've
