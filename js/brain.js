@@ -342,25 +342,70 @@ var FATERATOR = (function(fateratorModule) {
   }
   // Function to render out the remaining aspects
   function renderAspects() {
-    // Pull in any query string variables we have
-    var firstAspect = getParameterByName("a1");
-    // ASSUMPTION: If we have one aspect, we have 'em all
-    // please don't fuck with urls people
-    if(firstAspect) {
-      // Get the rest of them if we have the first one
-      var firstAspectMeta = getParameterByName("a1m");
-      var secondAspect = getParameterByName("a2");
-      var secondAspectMeta = getParameterByName("a2m");
-      var thirdAspect = getParameterByName("a3");
-      var thirdAspectMeta = getParameterByName("a3m");
-      // TODO: Now fill in the character sheet
-
-    }
+    // First let's define the number of aspects we want
     var numberOfAspects = 3;
+    // Create other variables we'll need later.
     var aspectDiv = document.getElementsByClassName("aspects")[0];
     var nameListElement = document.createElement("ul");
     var tempListItem = {};
     var tempAspect = {};
+    // Attempt to pull in the first aspect
+    var firstAspect = getParameterByName("a1");
+    if(firstAspect) {
+      // Decrease number of aspects because we found
+      // one provided on the query string
+      numberOfAspects -= 1;
+      // Fill in the HTML element
+      tempAspect = findValueByGuid(FD.aspects,firstAspect);
+      tempListItem = document.createElement("li");
+      tempListItem.appendChild(document.createTextNode(tempAspect));
+      nameListElement.appendChild(tempListItem);
+      aspectDiv.appendChild(nameListElement);
+      // Update the player aspect guid array to contain
+      // this guid
+      console.log("updating playerAspectGuids with " + firstAspect + " array: " + fateratorModule.playerAspectGuids);
+      fateratorModule.playerAspectGuids.push(firstAspect);
+    }
+    // Attempt to pull in the second aspect
+    var secondAspect = getParameterByName("a2");
+    // If we want more than 1 aspect
+    if(numberOfAspects > 0 && secondAspect) {
+      // Decrease number of aspects because we found
+      // one provided on the query string
+      numberOfAspects -= 1;
+      // Fill in the HTML element
+      tempAspect = findValueByGuid(FD.aspects,secondAspect);
+      tempListItem = document.createElement("li");
+      tempListItem.appendChild(document.createTextNode(tempAspect));
+      nameListElement.appendChild(tempListItem);
+      aspectDiv.appendChild(nameListElement);
+      // Update the player aspect guid array to contain
+      // this guid
+      console.log("updating playerAspectGuids with " + secondAspect + " array: " + fateratorModule.playerAspectGuids);
+      fateratorModule.playerAspectGuids.push(secondAspect);
+    }
+    // Attempt to pull in the third aspect
+    var thirdAspect = getParameterByName("a3");
+    // If we want more than 2 aspects 
+    if(numberOfAspects > 0 && thirdAspect) {
+      // Decrease number of aspects because we found
+      // one provided on the query string
+      numberOfAspects -= 1;
+      // Fill in the HTML element
+      tempAspect = findValueByGuid(FD.aspects,thirdAspect);
+      tempListItem = document.createElement("li");
+      tempListItem.appendChild(document.createTextNode(tempAspect));
+      nameListElement.appendChild(tempListItem);
+      aspectDiv.appendChild(nameListElement);
+      // Update the player aspect guid array to contain
+      // this guid
+      console.log("updating playerAspectGuids with " + thirdAspect + " array: " + fateratorModule.playerAspectGuids);
+      fateratorModule.playerAspectGuids.push(thirdAspect);
+    }
+    // Just leave the function if we don't have any aspects
+    // left to render
+    if(numberOfAspects <= 0) { return; }
+    // Otherwise, let's create some fresh ones!
     for(var i = 0; i < numberOfAspects; i++) {
       tempAspect = fateratorModule.createAspect();
       tempListItem = document.createElement("li");
@@ -370,8 +415,7 @@ var FATERATOR = (function(fateratorModule) {
       // this guid
       console.log("updating playerAspectGuids with " + tempAspect.guid + " array: " + fateratorModule.playerAspectGuids);
       fateratorModule.playerAspectGuids.push(tempAspect.guid);
-      //updateHashParam("a"+(i+1), tempAspect.guid);
-      //updateHashParam("a"+(i+1), tempAspect.meta); // or name or whatever fuck you
+      updateHashParam("a"+(i+1), tempAspect.guid);
     }
     aspectDiv.appendChild(nameListElement);
   }
