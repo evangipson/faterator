@@ -106,28 +106,6 @@ var FATERATOR = (function(fateratorModule) {
       }
     }
   }
-  // Function to sanitize (get rid of unwanted elements)
-  // the query string
-  /* function sanitizeQS() {
-    var charHashElements = charHash.split("&");
-    var counter = 0;
-    // For every element split by the &
-    for(var charHashElement = 0; charHashElement < charHashElements.length; charHashElement++) {
-      for(var validQueryString = 0; validQueryString < validQueryStrings.length; validQueryString++) {
-        // reset our counter
-        counter = 0;
-        // Increment our counter every time we DON'T hit a valid query string
-        if(charHashElements[charHashElement].indexOf(validQueryStrings[validQueryString]) === -1) {
-          counter++;
-        }
-      }
-      // If we've not hit ANY valid Query strings...
-      if(counter === validQueryStrings.length) {
-        charHashElements.splice(charHashElement, 1);
-      }
-    }
-    charHash = charHashElements.join("&");
-  } */
   // Function to be called from init
   // NOTE: Please don't call this function elsewhere.
   function applyHash() {
@@ -165,80 +143,51 @@ var FATERATOR = (function(fateratorModule) {
       "Sneaky",
       "Quick"
     ];
-    /* 
-    
-    // If we have a saved character in our URL...
-    if(savedCharacterApproaches) {
-      // Gather up our query string variables
-      // and break them into approahces
-      savedApproachIndex = [
-        savedCharacterApproaches.substr(0,2),
-        savedCharacterApproaches.substr(2,2),
-        savedCharacterApproaches.substr(4,2),
-        savedCharacterApproaches.substr(6,2),
-        savedCharacterApproaches.substr(8,2),
-        savedCharacterApproaches.substr(10,2)
-      ];
-      // Set our approaches based on our
-      // query string indexes
-      /*var queryStringApproaches = [];
-      for(var i = 0; i < 6; i++) {
-        queryStringApproaches.push({
-          "boost": savedApproachIndex[i].substr(i+1,1),
-          "approach": approachs[parseInt(savedApproachIndex.substr(i,1))]
-        });
-      }
+    // Pick one to be our "best" approach, and actually
+    // remove it from the array.
+    var approachIndex = fateratorModule.randomNum(approaches.length);
+    var bestApproach = {
+      "boost": 3,
+      "approach": approaches.splice([fateratorModule.randomNum(approaches.length)], 1)
+    };
+    var goodApproaches = [];
+    approachIndex = fateratorModule.randomNum(approaches.length);
+    goodApproaches[0] = {
+      "boost": 2,
+      "approach": approaches.splice([fateratorModule.randomNum(approaches.length)], 1)
+    };
+    approachIndex = fateratorModule.randomNum(approaches.length);
+    goodApproaches[1] = {
+      "boost": 2,
+      "approach": approaches.splice([fateratorModule.randomNum(approaches.length)], 1)
     }
-    // Otherwise we should just render out a generated one.
-    else {
-
-      */
-      // Pick one to be our "best" approach, and actually
-      // remove it from the array.
-      var approachIndex = fateratorModule.randomNum(approaches.length);
-      var bestApproach = {
-        "boost": 3,
-        "approach": approaches.splice([fateratorModule.randomNum(approaches.length)], 1)
-      };
-      var goodApproaches = [];
-      approachIndex = fateratorModule.randomNum(approaches.length);
-      goodApproaches[0] = {
-        "boost": 2,
-        "approach": approaches.splice([fateratorModule.randomNum(approaches.length)], 1)
-      };
-      approachIndex = fateratorModule.randomNum(approaches.length);
-      goodApproaches[1] = {
-        "boost": 2,
-        "approach": approaches.splice([fateratorModule.randomNum(approaches.length)], 1)
-      }
-      var noviceApproaches = [];
-      approachIndex = fateratorModule.randomNum(approaches.length);
-      noviceApproaches[0] = {
-        "boost": 1,
-        "approach": approaches.splice([fateratorModule.randomNum(approaches.length)], 1)
-      };
-      approachIndex = fateratorModule.randomNum(approaches.length);
-      noviceApproaches[1] = {
-        "boost": 1,
-        "approach": approaches.splice([fateratorModule.randomNum(approaches.length)], 1)
-      }
-      approachIndex = fateratorModule.randomNum(approaches.length);
-      var worstApproach = {
-        "boost": 0,
-        // I can count on this being the last element in the array since
-        // we've iterated on it 5 times and there are 6 elements.
-        "approach": approaches[0]
-      };
-      // Create the new approaches array
-      approaches = [
-        bestApproach,
-        goodApproaches[0],
-        goodApproaches[1],
-        noviceApproaches[0],
-        noviceApproaches[1],
-        worstApproach
-      ];
-    // } (end else that is commented out)
+    var noviceApproaches = [];
+    approachIndex = fateratorModule.randomNum(approaches.length);
+    noviceApproaches[0] = {
+      "boost": 1,
+      "approach": approaches.splice([fateratorModule.randomNum(approaches.length)], 1)
+    };
+    approachIndex = fateratorModule.randomNum(approaches.length);
+    noviceApproaches[1] = {
+      "boost": 1,
+      "approach": approaches.splice([fateratorModule.randomNum(approaches.length)], 1)
+    }
+    approachIndex = fateratorModule.randomNum(approaches.length);
+    var worstApproach = {
+      "boost": 0,
+      // I can count on this being the last element in the array since
+      // we've iterated on it 5 times and there are 6 elements.
+      "approach": approaches[0]
+    };
+    // Create the new approaches array
+    approaches = [
+      bestApproach,
+      goodApproaches[0],
+      goodApproaches[1],
+      noviceApproaches[0],
+      noviceApproaches[1],
+      worstApproach
+    ];
     // Update the HTML elements
     var approachesDiv = document.getElementsByClassName("approaches")[0];
     var nameListElement = document.createElement("ul");
