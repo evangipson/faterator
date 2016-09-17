@@ -17,14 +17,14 @@ p {
 }
 a {
     color: white;
-    text-decoration: overline;
-    border-bottom: 2px white dashed;
     cursor: pointer;
+    text-decoration: underline;
+    border-top: 2px white dashed;
 }
 a:hover {
-    text-decoration: underline;
-    border-bottom: none;
-    border-top: 2px white dashed;
+    text-decoration: overline;
+    border-top: none;
+    border-bottom: 2px white dashed;
 }
 /* Header and Subtitle Styles */
 h1, .subtitle, h3 {
