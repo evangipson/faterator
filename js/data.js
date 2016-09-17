@@ -13,7 +13,8 @@ var FATERATOR = (function(fateratorModule) {
         "names": {},
         "treasures": {},
         "aspects": {},
-        "troubles": {}
+        "troubles": {},
+        "stunts": {}
     };
     // Define our names first, that's the most
     // important data for our functions below.
@@ -390,6 +391,12 @@ var FATERATOR = (function(fateratorModule) {
         // Return some configuration of that data
         return treasureAdjective[fateratorModule.randomNum(treasureAdjective.length)].value + " " + treasure[fateratorModule.randomNum(treasure.length)].value;
     };
+    
+    // Advanced Stats
+    // --------------
+    // These stats use all the functions and data
+    // defined above.
+
     // Now we can define our aspects since our names
     // and seed functions are declared
     fateratorModule.DATA.aspects = {
@@ -565,6 +572,63 @@ var FATERATOR = (function(fateratorModule) {
             }
         ]
     };
+    // Character stunts
+    // NOTE: No stunts use createTreasure() yet,
+    // but I can think of a few instances where
+    // it would, so I'm moving it here below createTreasure's
+    // function expression.
+    // Set up all of our stunts, which each
+    // have a value, description, and guid.
+    fateratorModule.DATA.stunts = {
+        // Quick-based stunts
+        "quickStunts" : [
+            {
+                "value" : "Deft Hands",
+                "description": "Because of my Deft Hands, I'm able to add 2 to my quick roll while I attempt to steal or disarm.",
+                "guid": "DAYFDgwGBwY"
+            }
+        ],
+        // Flashy-based stunts
+        "flashyStunts" : [
+            {
+                "value" : "Acrobat",
+                "description": "Because I'm an acrobat, I can add 2 to my flashy roll when I need to get around.",
+                "guid": "CwkMCgsGCAg"
+            }
+        ],
+        // Force-based stunts
+        "forcefulStunts" : [
+            {
+                "value" : "Super Strength",
+                "description": "Because of my super strength, I'm able to add 2 to my strength roll when I move something or fight.",
+                "guid": "BQ0MDgsJAgA"
+            }
+        ],
+        // Stunts that players use carefully
+        "carefulStunts" : [
+            {
+                "value" : "Eagle Eye",
+                "description": "Because I have eagle eye, I can add 2 to my careful roll when I try and notice something or create an advantage.",
+                "guid": "AQYJAgUDCAs"
+            }
+        ],
+        // Clever-based stunts
+        "cleverStunts" : [
+            {
+                "value" : "White Lie",
+                "description": "Because I can white lie, I can add 2 to my clever roll while I'm in social interactions when I establish facts.",
+                "guid": "DwwFDg0DAg8"
+            }
+        ],
+        // Sneaky-based stunts
+        "sneakyStunts" : [
+            {
+                "value" : "Soft-Footed",
+                "description": "Because I'm soft-footed, I can add 2 to my sneaky roll while I'm trying to bypass NPCs.",
+                "guid": "CwoKCAsBCwM"
+            }
+        ]
+    };
     // Function that will create a generic
     // aspect and return it.
     fateratorModule.createAspect = function() {
@@ -608,7 +672,9 @@ var FATERATOR = (function(fateratorModule) {
         // just return the aspect!
         return returnAspect;
     };
-    // Advanced Data Objects 
+    // High Aspect Titles for characters, only one half
+    // of a high aspect. The other half is an aspect, which
+    // is why we need createAspect in data.js.
     fateratorModule.DATA.aspects.highAspectTitles = [
         {
             "value" : "Treasure Hunter",

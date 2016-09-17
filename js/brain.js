@@ -22,7 +22,9 @@ var FATERATOR = (function(fateratorModule) {
     // a<n>
     "a1",
     "a2",
-    "a3"
+    "a3",
+    // stunts
+    "st"
   ];
   // "Public" Functions (Functions that data.js needs)
   // -------------------------------------------------
@@ -252,62 +254,57 @@ var FATERATOR = (function(fateratorModule) {
   // the associated boost, approach, and
   // description
   function createStunt() {
-    // Set up all of our stunts, which each
-    // have a name and description.
-    var quickStunts = [{
-      "name": "Deft Hands",
-      "description": "Because of my Deft Hands, I'm able to add 2 to my quick roll while I attempt to steal or disarm."
-    }];
-    var flashyStunts = [{
-      "name": "Acrobat",
-      "description": "Because I'm an acrobat, I can add 2 to my flashy roll when I need to get around."
-    }];
-    var forcefulStunts = [{
-      "name": "Super Strength",
-      "description": "Because of my super strength, I'm able to add 2 to my strength roll when I move something or fight."
-    }];
-    var carefulStunts = [{
-      "name": "Eagle Eye",
-      "description": "Because I have eagle eye, I can add 2 to my careful roll when I try and notice something or create an advantage."
-    }];
-    var cleverStunts = [{
-      "name": "White Lie",
-      "description": "Because I can white lie, I can add 2 to my clever roll while I'm in social interactions when I establish facts."
-    }];
-    var sneakyStunts = [{
-      "name": "Soft-Footed",
-      "description": "Because I'm soft-footed, I can add 2 to my sneaky roll while I'm trying to bypass NPCs."
-    }];
     // Equal 1/6th chance for each stunt
     // to be returned
     if(fateratorModule.randomNum(100) < 15) {
-      return quickStunts[fateratorModule.randomNum(quickStunts.length)];
+      return FD.stunts.quickStunts[fateratorModule.randomNum(FD.stunts.quickStunts.length)];
     }
     else if(fateratorModule.randomNum(100) < 15) {
-      return flashyStunts[fateratorModule.randomNum(flashyStunts.length)];
+      return FD.stunts.flashyStunts[fateratorModule.randomNum(FD.stunts.flashyStunts.length)];
     }
     else if(fateratorModule.randomNum(100) < 15) {
-      return forcefulStunts[fateratorModule.randomNum(forcefulStunts.length)];
+      return FD.stunts.forcefulStunts[fateratorModule.randomNum(FD.stunts.forcefulStunts.length)];
     }
     else if(fateratorModule.randomNum(100) < 15) {
-      return carefulStunts[fateratorModule.randomNum(carefulStunts.length)];
+      return FD.stunts.carefulStunts[fateratorModule.randomNum(FD.stunts.carefulStunts.length)];
     }
     else if(fateratorModule.randomNum(100) < 15) {
-      return cleverStunts[fateratorModule.randomNum(cleverStunts.length)];
+      return FD.stunts.cleverStunts[fateratorModule.randomNum(FD.stunts.cleverStunts.length)];
     }
     else {
-      return sneakyStunts[fateratorModule.randomNum(sneakyStunts.length)];
+      return FD.stunts.sneakyStunts[fateratorModule.randomNum(FD.stunts.sneakyStunts.length)];
     }
   }
   // Function that will render out a stunt
   // chosen by createStunt()
   function renderStunt() {
+    // Pull in any query string for stunt
+    var savedCharacterStunt = getParameterByName("st");
+    // Get the HTML Element
     var stuntElement = document.getElementsByClassName("stunts")[0];
-    var newParagraphElement = document.createElement("p")
-    var newStunt = createStunt();
-    var stuntContent = document.createTextNode(newStunt.name + " - " + newStunt.description);
-    newParagraphElement.appendChild(stuntContent);
-    stuntElement.appendChild(newParagraphElement);
+    // We need a <p> to put the stunt into
+    var newParagraphElement = document.createElement("p");
+    // If we have a saved character, let's use the query string parameter
+    if(savedCharacterStunt) {
+      // Create a text node for the stunt information
+      var stuntContent = document.createTextNode(findValueByGuid(FD.stunts,savedCharacterStunt) + " - " + findStuntDescByGuid(savedCharacterStunt));
+      // Attach the new stunt-y text node to a paragraph element,
+      // then to the stunt element after it's wrapped.
+      newParagraphElement.appendChild(stuntContent);
+      stuntElement.appendChild(newParagraphElement);
+    }
+    else {
+      // Otherwise, let's create a new stunt and update the hash
+      var newStunt = createStunt();
+      // Create a text node for the stunt information
+      var stuntContent = document.createTextNode(newStunt.value + " - " + newStunt.description);
+      // Attach the new stunt-y text node to a paragraph element,
+      // then to the stunt element after it's wrapped.
+      newParagraphElement.appendChild(stuntContent);
+      stuntElement.appendChild(newParagraphElement);
+      // Update the hash
+      updateHashParam("st", newStunt.guid);
+    }
   }
   // Function that will return ONE trouble object
   // containing a value and a guid.
@@ -419,7 +416,31 @@ var FATERATOR = (function(fateratorModule) {
     }
     aspectDiv.appendChild(nameListElement);
   }
-  // This function will locate an aspect
+  // This function will locate a stunt's' description
+  // given a guid
+  function findStuntDescByGuid(guid) {
+    // Storage for our return aspect
+    var retAspect = false;
+    var e = {};
+    // Find our item via guid by first
+    // searching through all aspects for
+    // the guid carried in
+    for(var dataObject in FD.stunts) {
+      for(var i = 0; i < FD.stunts[dataObject].length; i++) {
+        var e = FD.stunts[dataObject][i];
+        if(e.guid === guid) {
+          retAspect = e;
+        };
+        if(retAspect.guid === guid) {
+          return retAspect.description;
+        }
+      }
+    }
+    // If we haven't hit anything yet
+    // we are safe to return fasle
+    return false;
+  }
+  // This function will locate an item's value
   // given an object and guid - returns false if no
   // match found
   function findValueByGuid(dataObj, guid) {
