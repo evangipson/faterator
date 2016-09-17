@@ -12,7 +12,7 @@ div {
   padding: 0.75rem 2rem 1.5rem 1.5rem;
 }
 p {
-  width: 66%;
+  width: 72%;
   margin: 0 auto;
 }
 a {
@@ -100,4 +100,70 @@ div:nth-child(even), div:nth-child(even) h3 {
     font-size: 1.85rem;
     padding-bottom: 0.5rem;
   }
+}
+/* Printer Styles */
+@media print {
+    /* Default Print Stylesheet Template
+    by Rob Glazebrook of CSSnewbie.com
+    Last Updated: June 4, 2008
+    
+    Feel free (nay, compelled) to edit, append, and 
+    manipulate this file as you see fit. */
+    
+
+  /* SECTION 1: Set default width, margin, float, and
+    background. This prevents elements from extending 
+    beyond the edge of the printed page, and prevents
+    unnecessary background images from printing */
+  body, #content, #container {
+    width: 100%;
+    margin: 0;
+    float: none;
+    background: #fff;
+  }
+
+  /* SECTION 3: Set body font face, size, and color.
+    Consider using a serif font for readability. */
+  body {
+    font: 1em Georgia, "Times New Roman", Times, serif;
+    color: #000; 
+  }
+
+  /* SECTION 4: Set heading font face, sizes, and color.
+    Diffrentiate your headings from your body text.
+    Perhaps use a large sans-serif for distinction. */
+  h1,h2,h3,h4,h5,h6 {
+    font-family: Helvetica, Arial, sans-serif;
+    color: #000;
+  }
+  h1 { 
+    font-size: 220%;
+    margin-bottom: 1.5rem; 
+  }
+  h2 { font-size: 175%; }
+  h3 { font-size: 135%; }
+  h4 { font-size: 100%; font-variant: small-caps; }
+  h5 { font-size: 100%; }
+  h6 { font-size: 90%; font-style: italic; }
+
+  /* Custom Rules */
+  * {
+    color: #000 !important;
+  }
+  div {
+    padding: 0;
+    margin: 0;
+    margin-bottom: 1.5rem;
+  }
+  .subtitle {
+    display: none;
+  }
+  .approaches, .aspects {
+    float: left;
+    width: 50%;
+  }
+  .stunts {
+    float: left;
+  }
+
 }
