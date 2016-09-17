@@ -424,6 +424,10 @@ var FATERATOR = (function(fateratorModule) {
       // each high aspect has an associated aspect, as defined in data.js,
       // Also update the HTML element with the value of the guid
       aspectDiv.innerHTML += " " + targetTitle.value + ", " + findAspect(savedHighAspectAspect).value;
+      // Update the player aspect guid array to contain
+      // this guid
+      console.log("updating playerAspectGuids with " + savedHighAspectAspect + " array: " + fateratorModule.playerAspectGuids);
+      fateratorModule.playerAspectGuids.push(savedHighAspectAspect);
     }
     else {
       // We need an index for our high aspect
