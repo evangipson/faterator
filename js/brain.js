@@ -331,7 +331,7 @@ var FATERATOR = (function(fateratorModule) {
     var troubleElement = document.getElementsByClassName("trouble")[0];
     // If we have a saved character, let's use the query string parameter
     if(savedCharacterTrouble) {
-      troubleElement.innerHTML += " [need to generify findAspect]" + savedCharacterTrouble;
+      troubleElement.innerHTML += " " + findValueByGuid(FD.troubles,savedCharacterTrouble);
     }
     // Otherwise just create a new trouble and update the hash
     else {
@@ -376,26 +376,23 @@ var FATERATOR = (function(fateratorModule) {
     aspectDiv.appendChild(nameListElement);
   }
   // This function will locate an aspect
-  // given a guid - returns false if no
+  // given an object and guid - returns false if no
   // match found
-  function findAspect(guid) {
+  function findValueByGuid(dataObj, guid) {
     // Storage for our return aspect
     var retAspect = false;
     var e = {};
     // Find our item via guid by first
     // searching through all aspects for
     // the guid carried in
-    for(var aspect in FD.aspects) {
-      //console.log("IN FINDASPECT: " + retAspect, aspect + " and the length of the array is " + FD.aspects[aspect].length);
-      for(var i = 0; i < FD.aspects[aspect].length; i++) {
-        var e = FD.aspects[aspect][i];
-        //console.log("Comparing " + e.value + " guid: " + e.guid + " with " + guid + " .... " );
+    for(var dataObject in dataObj) {
+      for(var i = 0; i < dataObj[dataObject].length; i++) {
+        var e = dataObj[dataObject][i];
         if(e.guid === guid) {
           retAspect = e;
         };
         if(retAspect.guid === guid) {
-          //console.log("returning! found " + retAspect.value);
-          return retAspect;
+          return retAspect.value;
         }
       }
     }
@@ -420,7 +417,7 @@ var FATERATOR = (function(fateratorModule) {
       // I am assuming savedHighAspectAspect will be there, Because
       // each high aspect has an associated aspect, as defined in data.js,
       // Also update the HTML element with the value of the guid
-      aspectDiv.innerHTML += " " + targetTitle.value + ", " + findAspect(savedHighAspectAspect).value;
+      aspectDiv.innerHTML += " " + targetTitle.value + ", " + findValueByGuid(FD.aspects,savedHighAspectAspect);
       // Update the player aspect guid array to contain
       // this guid
       console.log("updating playerAspectGuids with " + savedHighAspectAspect + " array: " + fateratorModule.playerAspectGuids);
