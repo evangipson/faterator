@@ -16,17 +16,13 @@ var FATERATOR = (function(fateratorModule) {
     "hA",
     // High Aspect - Aspect
     "hAa",
+    // trouble
+    "tr",
     // aspects in the format:
     // a<n>
-    // a<n>m (where "m" is metadata)
-    // each aspect gets 1 metadata field
-    // which will be optional
     "a1",
-    "a1m",
     "a2",
-    "a2m",
-    "a3",
-    "a3m"
+    "a3"
   ];
   // "Public" Functions (Functions that data.js needs)
   // -------------------------------------------------
@@ -313,35 +309,36 @@ var FATERATOR = (function(fateratorModule) {
     newParagraphElement.appendChild(stuntContent);
     stuntElement.appendChild(newParagraphElement);
   }
-  // Function that will return ONE trouble
+  // Function that will return ONE trouble object
+  // containing a value and a guid.
   function createTrouble() {
-    var personalQuirks = [
-      "Greedy",
-      "Nosy",
-      "Awkward",
-      "Superstitious",
-      "Suspicious",
-      "Reckless"
-    ];
-    var personalMechanics = [
-      "Compelled by their " + fateratorModule.createTreasure(),
-      "Has a " + fateratorModule.createTreasure() + " stuck on their body",
-    ];
     // 75% chance that the trouble is a
     // quirk based trouble
     if(fateratorModule.randomNum(100) < 75) {
-      return personalQuirks[fateratorModule.randomNum(personalQuirks.length)];
+      return FD.troubles.personalQuirks[fateratorModule.randomNum(FD.troubles.personalQuirks.length)];
     }
     // Otherwise, give us a mechanic-based trouble
     else {
-      return personalMechanics[fateratorModule.randomNum(personalMechanics.length)];
+      return FD.troubles.personalMechanics[fateratorModule.randomNum(FD.troubles.personalMechanics.length)];
     }
   }
   // This function will draw out the trouble
   // created by createTrouble() into HTML elements
   function renderTrouble() {
-    var troubleDiv = document.getElementsByClassName("trouble")[0];
-    troubleDiv.innerHTML += " " + createTrouble();
+    // Pull in any query string trouble
+    var savedCharacterTrouble = getParameterByName("tr");
+    // Pull in HTML element for the name
+    var troubleElement = document.getElementsByClassName("trouble")[0];
+    // If we have a saved character, let's use the query string parameter
+    if(savedCharacterTrouble) {
+      troubleElement.innerHTML += " [need to generify findAspect]" + savedCharacterTrouble;
+    }
+    // Otherwise just create a new trouble and update the hash
+    else {
+      var trouble = createTrouble();
+      troubleElement.innerHTML += " " + trouble.value;
+      updateHashParam("tr", trouble.guid);
+    }
   }
   // Function to render out the remaining aspects
   function renderAspects() {

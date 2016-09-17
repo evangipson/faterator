@@ -3,12 +3,17 @@
 // The data should all have a guid associated that
 // isn't already inside this master list.
 var FATERATOR = (function(fateratorModule) {
+
+    // Variables I need for this module
+    // --------------------------------
+    
     // Defining our carrier for the data of Faterator
     fateratorModule.DATA = {
         // The types of data we have
         "names": {},
         "treasures": {},
         "aspects": {},
+        "troubles": {}
     };
     // Define our names first, that's the most
     // important data for our functions below.
@@ -348,11 +353,13 @@ var FATERATOR = (function(fateratorModule) {
             }
         ]
     };
-    // Variables I need for this module
-    // --------------------------------
+    // Array to hold the player aspect guids to ensure
+    // no duplicates!
     fateratorModule.playerAspectGuids = [];
-    // Functions I need to generate stuff beyond names.
+    
+    // Functions I need to generate words beyond names.
     // ------------------------------------------------
+
     // Returns a number that is random within range
     fateratorModule.randomNum = function(highNum) {
         return Math.floor(Math.random() * parseInt(highNum));
@@ -516,8 +523,48 @@ var FATERATOR = (function(fateratorModule) {
             }
         ]
     };
-    // Advanced Creation Functions
-    // ---------------------------
+    // Character troubles
+    fateratorModule.DATA.troubles = {
+        // Player beliefs
+        "personalQuirks" : [
+            {
+                //"meta" : fateratorModule.createFantasyName().value,
+                "value" : "Greedy",
+                "guid": "CgIDCQUMDAQ"
+            },
+            {
+                "value" : "Nosy",
+                "guid": "CAcNCgQIAAE"
+            },
+            {
+                "value" : "Awkward",
+                "guid": "BAoHBgwJCgU"
+            },
+            {
+                "value" : "Superstitious",
+                "guid": "DQQEBAUJBwg"
+            },
+            {
+                "value" : "Suspicious",
+                "guid": "DAYICA0FAAw"
+            },
+            {
+                "value" : "Reckless",
+                "guid": "CA4JBQIHCgQ"
+            }
+        ],
+        // Personal Mechanic-based Troubles
+        "personalMechanics" : [
+            {
+                "value": "Compelled by their " + fateratorModule.createTreasure(),
+                "guid": "BAoGCA4NBAE"
+            },
+            {
+                "value": "Has a " + fateratorModule.createTreasure() + " stuck on their body",
+                "guid": "DQUNBwcODQ4"
+            }
+        ]
+    };
     // Function that will create a generic
     // aspect and return it.
     fateratorModule.createAspect = function() {
