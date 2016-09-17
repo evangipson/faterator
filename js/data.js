@@ -348,6 +348,9 @@ var FATERATOR = (function(fateratorModule) {
             }
         ]
     };
+    // Variables I need for this module
+    // --------------------------------
+    fateratorModule.playerAspectGuids = [];
     // Functions I need to generate stuff beyond names.
     // ------------------------------------------------
     // Returns a number that is random within range
@@ -527,29 +530,36 @@ var FATERATOR = (function(fateratorModule) {
             // let's import that from our DATARATOR
             var beliefs = fateratorModule.DATA.aspects.beliefs;
             returnAspect = beliefs[fateratorModule.randomNum(beliefs.length)];
-            return returnAspect;
         }
         else if(fateratorModule.randomNum(100) < 25) {
             // We're using the items array, so 
             // let's import that from our DATARATOR
             var items = fateratorModule.DATA.aspects.items;
             returnAspect = items[fateratorModule.randomNum(items.length)];
-            return returnAspect;
         }
         else if(fateratorModule.randomNum(100) < 25) {
             // We're using the items array, so 
             // let's import that from our DATARATOR
             var relationships = fateratorModule.DATA.aspects.relationships;
             returnAspect = relationships[fateratorModule.randomNum(relationships.length)];
-            return returnAspect;
         }
         else {
             // We're using the items array, so 
             // let's import that from our DATARATOR
             var titles = fateratorModule.DATA.aspects.titles;
             returnAspect = titles[fateratorModule.randomNum(titles.length)];
-            return returnAspect;
         }
+        // Make sure we aren't returning an aspect that already is displayed
+        for(var i = 0; i < fateratorModule.playerAspectGuids.length; i++) {
+            // If we have the same guid - let's run the function again
+            // to pick a new one.
+            if(returnAspect.guid == fateratorModule.playerAspectGuids[i]) {
+                createAspect();
+            }
+        }
+        // If we have no matching guids
+        // just return the aspect!
+        return returnAspect;
     };
     // Advanced Data Objects 
     fateratorModule.DATA.aspects.highAspectTitles = [

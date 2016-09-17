@@ -369,6 +369,10 @@ var FATERATOR = (function(fateratorModule) {
       tempListItem = document.createElement("li");
       tempListItem.appendChild(document.createTextNode(tempAspect.value));
       nameListElement.appendChild(tempListItem);
+      // Update the player aspect guid array to contain
+      // this guid
+      console.log("updating playerAspectGuids with " + tempAspect.guid + " array: " + fateratorModule.playerAspectGuids);
+      fateratorModule.playerAspectGuids.push(tempAspect.guid);
       //updateHashParam("a"+(i+1), tempAspect.guid);
       //updateHashParam("a"+(i+1), tempAspect.meta); // or name or whatever fuck you
     }
@@ -430,6 +434,10 @@ var FATERATOR = (function(fateratorModule) {
       // Update the hash params so reloads work
       updateHashParam("hA", FD.aspects.highAspectTitles[highAspectIndex].guid);
       updateHashParam("hAa", newAspect.guid);
+      // Update the player aspect guid array to contain
+      // this guid
+      console.log("updating playerAspectGuids with " + newAspect.guid + " array: " + fateratorModule.playerAspectGuids);
+      fateratorModule.playerAspectGuids.push(newAspect.guid);
     }
   }
   // Give back the module which has the
