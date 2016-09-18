@@ -17,6 +17,7 @@ If you want a local copy of Faterator, just fork the repository, and set this up
 ## Built With
 * JavaScript
 * CSS
+* [Short Guid Generator](http://www.shortguid.com/#/guid/uid-64)
 * HTML
 * [Visual Studio Code](https://code.visualstudio.com/)
 * Google Chrome
