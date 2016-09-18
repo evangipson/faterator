@@ -119,7 +119,7 @@ var FATERATOR = (function(fateratorModule) {
   // using our createFantasyName function
   function renderName() {
     // Pull in any query string variables we have
-    var savedCharacterName = getParameterByName("chNm");
+    var savedCharacterName = XORCipher.decode("test", getParameterByName("chNm"));
     // Pull in HTML element for the name
     var nameElement = document.getElementsByClassName("name")[0];
     // If we have a saved character, let's use the query string parameter
@@ -129,7 +129,7 @@ var FATERATOR = (function(fateratorModule) {
     else {
       var fullName = fateratorModule.createFullName();
       nameElement.innerHTML += " " + fullName;
-      updateHashParam("chNm", fullName);
+      updateHashParam("chNm", XORCipher.encode("test", fullName));
     }
   }
   // Function that will return an array of
