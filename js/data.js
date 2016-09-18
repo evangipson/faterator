@@ -111,9 +111,25 @@ var FATERATOR = (function(fateratorModule) {
             },
         ],
         // Second Syllables
+        // NOTE: Not used 100% of the time.
         "second" : [
             {
                 "value": "r"
+            },
+            {
+                "value": "a"
+            },
+            {
+                "value": "b"
+            },
+            {
+                "value": "y"
+            },
+            {
+                "value": "i"
+            },
+            {
+                "value": "e"
             },
             {
                 "value": "lo"
@@ -164,9 +180,6 @@ var FATERATOR = (function(fateratorModule) {
                 "value": "hsh"
             },
             {
-                "value": "xh"
-            },
-            {
                 "value": "xi"
             },
             {
@@ -182,7 +195,7 @@ var FATERATOR = (function(fateratorModule) {
                 "value": "za"
             }
         ],
-        // Possessions/Items/Artifacts
+        // Third syllables
         "third" : [
             {
                 "value": "k"
@@ -255,6 +268,12 @@ var FATERATOR = (function(fateratorModule) {
             },
             {
                 "value": "qin"
+            },
+            {
+                "value": "ner"
+            },
+            {
+                "value": "mer"
             },
         ]
     };
