@@ -60,7 +60,7 @@
     }
   };
 
-  var b64_table = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/=";
+  var b64_table = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
 
   function b64_encode(data) {
     var o1, o2, o3, h1, h2, h3, h4, bits, r, i = 0, enc = "";
