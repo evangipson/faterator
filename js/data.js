@@ -665,7 +665,7 @@ var FATERATOR = (function(fateratorModule) {
             // If we have the same guid - let's run the function again
             // to pick a new one.
             if(returnAspect.guid == fateratorModule.playerAspectGuids[i]) {
-                fateratorModule.createAspect();
+                return fateratorModule.createAspect();
             }
         }
         // If we have no matching guids

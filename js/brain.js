@@ -309,7 +309,7 @@ var FATERATOR = (function(fateratorModule) {
       aspectDiv.appendChild(nameListElement);
       // Update the player aspect guid array to contain
       // this guid
-      console.log("updating playerAspectGuids with " + firstAspect + " array: " + fateratorModule.playerAspectGuids);
+      //console.log("updating playerAspectGuids with " + firstAspect + " array: " + fateratorModule.playerAspectGuids);
       fateratorModule.playerAspectGuids.push(firstAspect);
     }
     // Attempt to pull in the second aspect
@@ -327,7 +327,6 @@ var FATERATOR = (function(fateratorModule) {
       aspectDiv.appendChild(nameListElement);
       // Update the player aspect guid array to contain
       // this guid
-      console.log("updating playerAspectGuids with " + secondAspect + " array: " + fateratorModule.playerAspectGuids);
       fateratorModule.playerAspectGuids.push(secondAspect);
     }
     // Attempt to pull in the third aspect
@@ -345,7 +344,6 @@ var FATERATOR = (function(fateratorModule) {
       aspectDiv.appendChild(nameListElement);
       // Update the player aspect guid array to contain
       // this guid
-      console.log("updating playerAspectGuids with " + thirdAspect + " array: " + fateratorModule.playerAspectGuids);
       fateratorModule.playerAspectGuids.push(thirdAspect);
     }
     // Just leave the function if we don't have any aspects
@@ -359,7 +357,6 @@ var FATERATOR = (function(fateratorModule) {
       nameListElement.appendChild(tempListItem);
       // Update the player aspect guid array to contain
       // this guid
-      console.log("updating playerAspectGuids with " + tempAspect.guid + " array: " + fateratorModule.playerAspectGuids);
       fateratorModule.playerAspectGuids.push(tempAspect.guid);
       updateHashParam("a"+(i+1), tempAspect.guid);
     }
@@ -434,7 +431,6 @@ var FATERATOR = (function(fateratorModule) {
       aspectDiv.innerHTML += " " + targetTitle.value + ", " + findValueByGuid(FD.aspects,savedHighAspectAspect);
       // Update the player aspect guid array to contain
       // this guid
-      console.log("updating playerAspectGuids with " + savedHighAspectAspect + " array: " + fateratorModule.playerAspectGuids);
       fateratorModule.playerAspectGuids.push(savedHighAspectAspect);
     }
     else {
@@ -448,7 +444,6 @@ var FATERATOR = (function(fateratorModule) {
       updateHashParam("hAa", newAspect.guid);
       // Update the player aspect guid array to contain
       // this guid
-      console.log("updating playerAspectGuids with " + newAspect.guid + " array: " + fateratorModule.playerAspectGuids);
       fateratorModule.playerAspectGuids.push(newAspect.guid);
     }
   }
