@@ -40,6 +40,10 @@ h1, .subtitle {
   padding: 1rem 0 0.66rem 0;
   width: 100%;
 }
+.subtitle p {
+  font-weight:300;
+  padding-top:0.5rem;
+}
 h1, h3 {
   margin: 0;
 }
@@ -69,6 +73,48 @@ ul li:last-child {
 div:nth-child(even), div:nth-child(even) h3 {
   background: #fc4a1a;
   color: #fefefe;
+}
+/* Copy Status Box */
+.copy {
+  position: fixed;
+  padding: 0;
+  margin: 0;
+  bottom: 0;
+  left: 0;
+  width: 100vw;
+}
+.copy p.status {
+  font-size: 1.5rem;
+  font-weight: 300;
+  font-family: 'Cormorant Unicase', serif;
+  text-align: center;
+}
+.success, .failure {
+  padding: 1rem .75rem;
+}
+.status.success {
+  background: #00b27c;
+  border: .25rem #009c6c solid;
+  color: #fff;
+  /* This speed syncs up with the speed for the
+   * class replace in utils.js, and the failure
+   * rule below! */
+  animation: inFromBottom 3s linear forwards;
+}
+.status.failure {
+  background: #ff3600;
+  border: .25rem #cc2b00 solid;
+  color: #fff;
+  /* This speed syncs up with the speed for the
+   * class replace in utils.js, and the success
+   * rule above! */
+  animation: inFromBottom 3s linear forwards;
+}
+@keyframes inFromBottom {
+    0%   {opacity: 0; bottom:-3rem;}
+    5% {opacity: 1; bottom:0;}
+    95% {opacity: 1; bottom:0;}
+    100% {opacity: 0; bottom:-3rem;}
 }
 /* Phone Styles */
 @media only screen and (max-width : 600px) {
@@ -105,6 +151,7 @@ div:nth-child(even), div:nth-child(even) h3 {
 @media print {
     /* Default Print Stylesheet Template
     by Rob Glazebrook of CSSnewbie.com
+    edited by Evan Gipson (removed section 2 - styles)
     Last Updated: June 4, 2008
     
     Feel free (nay, compelled) to edit, append, and 
@@ -122,14 +169,14 @@ div:nth-child(even), div:nth-child(even) h3 {
     background: #fff;
   }
 
-  /* SECTION 3: Set body font face, size, and color.
+  /* SECTION 2: Set body font face, size, and color.
     Consider using a serif font for readability. */
   body {
     font: 1em Georgia, "Times New Roman", Times, serif;
     color: #000; 
   }
 
-  /* SECTION 4: Set heading font face, sizes, and color.
+  /* SECTION 3: Set heading font face, sizes, and color.
     Diffrentiate your headings from your body text.
     Perhaps use a large sans-serif for distinction. */
   h1,h2,h3,h4,h5,h6 {

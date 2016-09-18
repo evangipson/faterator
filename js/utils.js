@@ -119,7 +119,108 @@
       return String.fromCharCode( c ^ keyCharAt(key, i) );
     }).join("");
   }
+  // This function will copy the current
+  // URL to the clipboard for the user.
+  // Thank you to http://stackoverflow.com/questions/400212/how-do-i-copy-to-the-clipboard-in-javascript
+  function copyURLtoClipboard() {
+    // Create a textarea, because we need something to "select"
+    // in order for the highly supported document.execCommand("copy") to work.
+    var textArea = document.createElement("textarea");
+
+    //
+    // *** This styling is an extra step which is likely not required. ***
+    //
+    // Why is it here? To ensure:
+    // 1. the element is able to have focus and selection.
+    // 2. if element was to flash render it has minimal visual impact.
+    // 3. less flakyness with selection and copying which **might** occur if
+    //    the textarea element is not visible.
+    //
+    // The likelihood is the element won't even render, not even a flash,
+    // so some of these are just precautions. However in IE the element
+    // is visible whilst the popup box asking the user for permission for
+    // the web page to copy to the clipboard.
+    //
+
+    // Place in top-left corner of screen regardless of scroll position.
+    textArea.style.position = 'fixed';
+    textArea.style.top = 0;
+    textArea.style.left = 0;
+
+    // Ensure it has a small width and height. Setting to 1px / 1em
+    // doesn't work as this gives a negative w/h on some browsers.
+    textArea.style.width = '2em';
+    textArea.style.height = '2em';
+
+    // We don't need padding, reducing the size if it does flash render.
+    textArea.style.padding = 0;
+
+    // Clean up any borders.
+    textArea.style.border = 'none';
+    textArea.style.outline = 'none';
+    textArea.style.boxShadow = 'none';
+
+    // Avoid flash of white box if rendered for any reason.
+    textArea.style.background = 'transparent';
+
+
+    textArea.value = window.location.href;
+
+    document.body.appendChild(textArea);
+
+    textArea.select();
+
+    try {
+        // Try to copy
+        var successful = document.execCommand('copy');
+        // Was the copy successful?
+        // Assign to a new bool
+        var msg = successful ? 'successful' : 'unsuccessful';
+        // Get the status HTML Element
+        var statusElement = document.getElementsByClassName("status")[0];
+        // Our animation time in milliseconds
+        // NOTE: This syncs with the .success and .failure
+        // animation times in the style.css file. If you change it
+        // here - you must change it there!
+        var animationTime = 3000;
+        // If we're successful, let's trigger the
+        // HTML Element to let the user know.
+        // (Also make sure the statusElement doesn't already
+        // have the classes on it)
+        if(msg && !statusElement.classList.contains("success") && !statusElement.classList.contains("failure")) {
+            // Trigger the success animation by updating the class
+            // on the statusElement
+            statusElement.innerText = "Copy was a success! Paste to save your character!";
+            statusElement.classList.add("success");
+        }
+        // Also trigger the bad element if we fail
+        // in the copy.
+        // (Also make sure the statusElement doesn't already
+        // have the classes on it)
+        else if (!statusElement.classList.contains("success") && !statusElement.classList.contains("failure")){
+            // Trigger the failure animation by updating the class
+            // on the statusElement
+            statusElement.innerText = "Copy was a failure! Try again?!";
+            statusElement.classList.add("failure");
+        }
+        // Make sure to remove the class after the animation completes,
+        // and blow the text out!
+        setTimeout( function() {
+            statusElement.classList.remove("failure");
+            statusElement.classList.remove("success");
+            statusElement.innerText = "";
+        }, animationTime );
+        // Update the log regahdless
+        console.log('Copying text command was ' + msg);
+    } catch (err) {
+        console.log('Oops, unable to copy - not supported.');
+    }
+
+    document.body.removeChild(textArea);
+  }
+
 
   exports.XORCipher = XORCipher;
+  exports.copyURLtoClipboard = copyURLtoClipboard;
 
 })(this);
