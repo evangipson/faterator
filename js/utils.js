@@ -219,7 +219,6 @@
     document.body.removeChild(textArea);
   }
 
-
   exports.XORCipher = XORCipher;
   exports.copyURLtoClipboard = copyURLtoClipboard;
 

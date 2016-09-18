@@ -24,10 +24,36 @@ var FATERATOR = (function(fateratorModule) {
         "first" : [
             {
                 "value": "Ga"
-                // Going to use value for GUID in case of names
-                // because the other GUIDS are so long they won't
-                // collide as long as all segments of the names are unique.
-                // "guid": "Ga"
+            },
+            {
+                "value": "Ab"
+            },
+            {
+                "value": "Ac"
+            },
+            {
+                "value": "Ak"
+            },
+            {
+                "value": "Ack"
+            },
+            {
+                "value": "Ay"
+            },
+            {
+                "value": "Az"
+            },
+            {
+                "value": "Aw"
+            },
+            {
+                "value": "Bo"
+            },
+            {
+                "value": "Bi"
+            },
+            {
+                "value": "By"
             },
             {
                 "value": "Xu"
@@ -55,7 +81,34 @@ var FATERATOR = (function(fateratorModule) {
             },
             {
                 "value": "Mi"
-            }
+            },
+            {
+                "value": "Ma"
+            },
+            {
+                "value": "Mu"
+            },
+            {
+                "value": "Loo"
+            },
+            {
+                "value": "Lu"
+            },
+            {
+                "value": "Lo"
+            },
+            {
+                "value": "Py"
+            },
+            {
+                "value": "Pi"
+            },
+            {
+                "value": "Paa"
+            },
+            {
+                "value": "Po"
+            },
         ],
         // Second Syllables
         "second" : [
@@ -169,6 +222,39 @@ var FATERATOR = (function(fateratorModule) {
             },
             {
                 "value": "lon"
+            },
+            {
+                "value": "don"
+            },
+            {
+                "value": "bon"
+            },
+            {
+                "value": "con"
+            },
+            {
+                "value": "qon"
+            },
+            {
+                "value": "kin"
+            },
+            {
+                "value": "son"
+            },
+            {
+                "value": "yon"
+            },
+            {
+                "value": "yin"
+            },
+            {
+                "value": "lin"
+            },
+            {
+                "value": "min"
+            },
+            {
+                "value": "qin"
             },
         ]
     };
