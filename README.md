@@ -5,7 +5,8 @@ Faterator uses JavaScript to generate you a Fate Accelerated character.
 |---|
 | [Getting Started](#getting-started) |
 | [Built With](#built-with) |
-| [Contributing](#contributing)  |
+| [Contributing Code](#contributing-code)  |
+| [Contributing Content](#contributing-new-content)  |
 | [Versioning](#versioning) |
 | [Authors](#authors)  |
 | [License](#license) |
@@ -20,10 +21,40 @@ If you want a local copy of Faterator, just fork the repository, and set this up
 * [Visual Studio Code](https://code.visualstudio.com/)
 * Google Chrome
 
-## Contributing
+## Contributing Code
 Have a look at the [issues with Faterator](https://github.com/evangipson/faterator/issues), and create a pull request containing your code so it can be reviewed be merged into the source!
 
 I will run all new javascript through [JSHint](http://jshint.com/) before merging into master.
+
+## Contributing New Content
+When contributing either types of aspects, different stunts, or syllables for names - you just need to edit the [data javascript file](https://github.com/evangipson/faterator/blob/master/js/data.js). Don't worry if you haven't seen javascript before! The format of the data is easy to grasp. For instance, let's say we want to add the potential aspect. First we search (ctrl+F/cmd+F) for:
+```javascript
+fateratorModule.DATA.aspects =
+```
+What is this? The "fateratorModule" is the module which houses all of our data and functions for the Faterator! "DATA" is the data object containing all the aspects, treasures, names within the fateratorModule; "aspects" is the data representation for parts of the aspect generator.
+
+You'll notice "beliefs" is the first section under the "fateratorModule.DATA.aspects = " line. Let's break that down:
+```javascript
+// Player beliefs
+"beliefs" : [
+    {
+        "value" : "The only good " + fateratorModule.createFantasyName() + " is a dead one",
+        "guid": "CwgGBAkLCAo"
+    },
+```
+The "value" is the meat of the belief-based aspect. The "guid" is a *global unique identifier*, and it's used to build the URL that saves your Faterator characters. We're also using a *function* here - fateratorModule.createFantasyName(). More on that below in the [Functions Available section](#functions-available-for-content-creation).
+
+If you'd like to find your own guid with your content, you can use this [short guid generator](http://www.shortguid.com/#/guid/uid-64); make sure to search data.js with your new guid before submitting the new content!
+
+If you'd like to just submit a text list to me using the [Faterator's issue system](https://github.com/evangipson/faterator/issues), that's fine too!
+
+### Functions Available for Content Creation
+- fateratorModule.createFantasyName()
+  - This function will yield you one name.
+- fateratorModule.createFullName()
+  - This function will yield you two names with a space in the middle.
+- fateratorModule.createTreasureName()
+  - This function will generate you a treasure name, usually in the form ADJECTIVE NOUN. You can contribute to both by augmenting the fateratorModule.DATA.treasures.adjective and fateratorModule.DATA.treasures.noun objects.
 
 ## Versioning
 Faterator is maintained using a 3-digit versioning system, represented by:
