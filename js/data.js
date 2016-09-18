@@ -525,7 +525,7 @@ var FATERATOR = (function(fateratorModule) {
                 "guid": "BwoBDQYFAQo"
             },
             {
-                "value" : "Theif",
+                "value" : "Thief",
                 "guid": "CQAEDw0OCwo"
             }
         ]
