@@ -513,7 +513,7 @@ var FATERATOR = (function(fateratorModule) {
                 "guid": "CQ0NAQsJCg4"
             },
             {
-                "value" : "Knowledgable of the " + fateratorModule.createFantasyName(),
+                "value" : "Knowledge of the " + fateratorModule.createFantasyName(),
                 "guid": "AwAICw0MDAw"
             },
         ]
