@@ -18,6 +18,13 @@ var FATERATOR = (function(fateratorModule) {
     "hAa",
     // trouble
     "tr",
+    // approaches
+    "ap1",
+    "ap2",
+    "ap3",
+    "ap4",
+    "ap5",
+    "ap6",
     // aspects in the format:
     // a<n>
     "a1",
@@ -135,6 +142,7 @@ var FATERATOR = (function(fateratorModule) {
   // Function that will return an array of
   // numbers that represent approaches
   function renderApproaches() {
+    // Set up our approaches
     var approaches = [
       "Careful",
       "Clever",
@@ -143,43 +151,91 @@ var FATERATOR = (function(fateratorModule) {
       "Sneaky",
       "Quick"
     ];
-    // Pick one to be our "best" approach, and actually
-    // remove it from the array.
-    var approachIndex = fateratorModule.randomNum(approaches.length);
-    var bestApproach = {
-      "boost": 3,
-      "approach": approaches.splice([fateratorModule.randomNum(approaches.length)], 1)
-    };
-    var goodApproaches = [];
-    approachIndex = fateratorModule.randomNum(approaches.length);
-    goodApproaches[0] = {
-      "boost": 2,
-      "approach": approaches.splice([fateratorModule.randomNum(approaches.length)], 1)
-    };
-    approachIndex = fateratorModule.randomNum(approaches.length);
-    goodApproaches[1] = {
-      "boost": 2,
-      "approach": approaches.splice([fateratorModule.randomNum(approaches.length)], 1)
+    // Pull in any query string for the first approach
+    var firstApproach = getParameterByName("ap1");
+    // Assumption: If you have 1 approach, you'll have them all.
+    if(firstApproach) {
+      // Get our other approaches and put them
+      // into an array
+      var savedApproaches = [
+        firstApproach,
+        getParameterByName("ap2"),
+        getParameterByName("ap3"),
+        getParameterByName("ap4"),
+        getParameterByName("ap5"),
+        getParameterByName("ap6"),
+      ];
+      // Set up the data objects that are expected
+      // by the for loop below - gonna hard code this
+      // because loop logic would be weird between the
+      // bestApproach, goodApproaches, etc. arrays/objects.
+      var bestApproach = {
+        "boost": 3,
+        "approach": XORCipher.decode("test", savedApproaches[0])
+      };
+      var goodApproaches = [];
+      goodApproaches[0] = {
+        "boost": 2,
+        "approach": XORCipher.decode("test", savedApproaches[1])
+      };
+      goodApproaches[1] = {
+        "boost": 2,
+        "approach": XORCipher.decode("test", savedApproaches[2])
+      };
+      var noviceApproaches = [];
+      noviceApproaches[0] = {
+        "boost": 1,
+        "approach": XORCipher.decode("test", savedApproaches[3])
+      };
+      noviceApproaches[1] = {
+        "boost": 1,
+        "approach": XORCipher.decode("test", savedApproaches[4])
+      }
+      var worstApproach = {
+        "boost": 0,
+        "approach": XORCipher.decode("test", savedApproaches[5])
+      };
     }
-    var noviceApproaches = [];
-    approachIndex = fateratorModule.randomNum(approaches.length);
-    noviceApproaches[0] = {
-      "boost": 1,
-      "approach": approaches.splice([fateratorModule.randomNum(approaches.length)], 1)
-    };
-    approachIndex = fateratorModule.randomNum(approaches.length);
-    noviceApproaches[1] = {
-      "boost": 1,
-      "approach": approaches.splice([fateratorModule.randomNum(approaches.length)], 1)
+    else {
+      // Pick one to be our "best" approach, and actually
+      // remove it from the array.
+      var approachIndex = fateratorModule.randomNum(approaches.length);
+      var bestApproach = {
+        "boost": 3,
+        "approach": approaches.splice([fateratorModule.randomNum(approaches.length)], 1)[0]
+      };
+      var goodApproaches = [];
+      approachIndex = fateratorModule.randomNum(approaches.length);
+      goodApproaches[0] = {
+        "boost": 2,
+        "approach": approaches.splice([fateratorModule.randomNum(approaches.length)], 1)[0]
+      };
+      approachIndex = fateratorModule.randomNum(approaches.length);
+      goodApproaches[1] = {
+        "boost": 2,
+        "approach": approaches.splice([fateratorModule.randomNum(approaches.length)], 1)[0]
+      }
+      var noviceApproaches = [];
+      approachIndex = fateratorModule.randomNum(approaches.length);
+      noviceApproaches[0] = {
+        "boost": 1,
+        "approach": approaches.splice([fateratorModule.randomNum(approaches.length)], 1)[0]
+      };
+      approachIndex = fateratorModule.randomNum(approaches.length);
+      noviceApproaches[1] = {
+        "boost": 1,
+        "approach": approaches.splice([fateratorModule.randomNum(approaches.length)], 1)[0]
+      }
+      approachIndex = fateratorModule.randomNum(approaches.length);
+      var worstApproach = {
+        "boost": 0,
+        // I can count on this being the last element in the array since
+        // we've iterated on it 5 times and there are 6 elements.
+        "approach": approaches[0]
+      };
     }
-    approachIndex = fateratorModule.randomNum(approaches.length);
-    var worstApproach = {
-      "boost": 0,
-      // I can count on this being the last element in the array since
-      // we've iterated on it 5 times and there are 6 elements.
-      "approach": approaches[0]
-    };
-    // Create the new approaches array
+    // Now that our bestApproach, goodApproaches, etc.
+    // are instantiated, create the new approaches array
     approaches = [
       bestApproach,
       goodApproaches[0],
@@ -193,9 +249,16 @@ var FATERATOR = (function(fateratorModule) {
     var nameListElement = document.createElement("ul");
     var tempListItem = {};
     for(var i = 0; i < approaches.length; i++) {
+      console.log(approaches[i]);
       tempListItem = document.createElement("li");
       tempListItem.appendChild(document.createTextNode(approaches[i].approach + ": +" + approaches[i].boost));
       nameListElement.appendChild(tempListItem);
+      // If we dont't have the firstApproach query string,
+      // let's update the hash parameter so we remember!
+      if(!firstApproach) {
+        // Update the hash with our approaches
+        updateHashParam("ap"+(i+1), XORCipher.encode("test", approaches[i].approach));
+      }
     }
     approachesDiv.appendChild(nameListElement);
   }

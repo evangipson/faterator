@@ -270,9 +270,6 @@ var FATERATOR = (function(fateratorModule) {
                 "value": "qin"
             },
             {
-                "value": "ner"
-            },
-            {
                 "value": "mer"
             },
         ]
