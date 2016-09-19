@@ -6,7 +6,10 @@ var FATERATOR = (function(fateratorModule) {
 
     // Variables I need for this module
     // --------------------------------
-    
+
+    // Array to hold the player aspect guids to ensure
+    // no duplicates
+    fateratorModule.playerAspectGuids = [];
     // Defining our carrier for the data of Faterator
     fateratorModule.DATA = {
         // The types of data we have
@@ -456,9 +459,6 @@ var FATERATOR = (function(fateratorModule) {
             }
         ]
     };
-    // Array to hold the player aspect guids to ensure
-    // no duplicates!
-    fateratorModule.playerAspectGuids = [];
     
     // Functions I need to generate words beyond names.
     // ------------------------------------------------
