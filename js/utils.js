@@ -47,7 +47,7 @@
    undef:true, unused:true, curly:true, browser:true, indent:2, maxerr:50 */
 /* global _ */
 (function(exports) {
-  "use strict";
+  //"use strict";
 
   var XORCipher = {
     encode: function(key, data) {

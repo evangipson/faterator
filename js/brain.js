@@ -250,7 +250,6 @@ var FATERATOR = (function(fateratorModule) {
     var nameListElement = document.createElement("ul");
     var tempListItem = {};
     for(var i = 0; i < approaches.length; i++) {
-      console.log(approaches[i]);
       tempListItem = document.createElement("li");
       tempListItem.appendChild(document.createTextNode(approaches[i].approach + ": +" + approaches[i].boost));
       nameListElement.appendChild(tempListItem);
