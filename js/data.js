@@ -25,256 +25,54 @@ var FATERATOR = (function(fateratorModule) {
     fateratorModule.DATA.names = {
         // First Syllables
         "first" : [
-            {
-                "value": "Ga"
-            },
-            {
-                "value": "Ab"
-            },
-            {
-                "value": "Ac"
-            },
-            {
-                "value": "Ak"
-            },
-            {
-                "value": "Ack"
-            },
-            {
-                "value": "Ay"
-            },
-            {
-                "value": "Az"
-            },
-            {
-                "value": "Aw"
-            },
-            {
-                "value": "Bo"
-            },
-            {
-                "value": "Bi"
-            },
-            {
-                "value": "By"
-            },
-            {
-                "value": "Xu"
-            },
-            {
-                "value": "Yi"
-            },
-            {
-                "value": "Fu"
-            },
-            {
-                "value": "Fo"
-            },
-            {
-                "value": "Va"
-            },
-            {
-                "value": "Vi"
-            },
-            {
-                "value": "Hi"
-            },
-            {
-                "value": "He"
-            },
-            {
-                "value": "Mi"
-            },
-            {
-                "value": "Ma"
-            },
-            {
-                "value": "Mu"
-            },
-            {
-                "value": "Loo"
-            },
-            {
-                "value": "Lu"
-            },
-            {
-                "value": "Lo"
-            },
-            {
-                "value": "Py"
-            },
-            {
-                "value": "Pi"
-            },
-            {
-                "value": "Paa"
-            },
-            {
-                "value": "Po"
-            },
+            "Ab", "Ac", "Ak", "Ack", "Ay", "Az", "Aw",
+            "Bo", "Bi", "By",
+            "Fu", "Fo",
+            "Ga",
+            "Hi", "He",
+            "Loo", "Lu", "Lo",
+            "Mi", "Ma", "Mu", 
+            "Py", "Pi", "Paa", "Po",
+            "Va", "Vi",
+            "Xu",
+            "Yi"
         ],
         // Second Syllables
         // NOTE: Not used 100% of the time.
         "second" : [
-            {
-                "value": "r"
-            },
-            {
-                "value": "a"
-            },
-            {
-                "value": "b"
-            },
-            {
-                "value": "y"
-            },
-            {
-                "value": "i"
-            },
-            {
-                "value": "e"
-            },
-            {
-                "value": "lo"
-            },
-            {
-                "value": "li"
-            },
-            {
-                "value": "no"
-            },
-            {
-                "value": "ni"
-            },
-            {
-                "value": "na"
-            },
-            {
-                "value": "ya"
-            },
-            {
-                "value": "ta"
-            },
-            {
-                "value": "to"
-            },
-            {
-                "value": "ys"
-            },
-            {
-                "value": "di"
-            },
-            {
-                "value": "da"
-            },
-            {
-                "value": "ka"
-            },
-            {
-                "value": "ki"
-            },
-            {
-                "value": "ku"
-            },
-            {
-                "value": "ri"
-            },
-            {
-                "value": "hsh"
-            },
-            {
-                "value": "xi"
-            },
-            {
-                "value": "z"
-            },
-            {
-                "value": "zi"
-            },
-            {
-                "value": "ze"
-            },
-            {
-                "value": "za"
-            }
+            "a",
+            "b",
+            "di", "da",
+            "e",
+            "hsh",
+            "i",
+            "ka", "ki", "ku",
+            "lo", "li",
+            "no", "ni", "na",
+            "r", "ri",
+            "ta", "to",
+            "xi",
+            "y", "ya", "ys",
+            "z", "zi", "ze", "za"
         ],
         // Third syllables
         "third" : [
-            {
-                "value": "k"
-            },
-            {
-                "value": "m"
-            },
-            {
-                "value": "n"
-            },
-            {
-                "value": "t"
-            },
-            {
-                "value": "tt"
-            },
-            {
-                "value": "l"
-            },
-            {
-                "value": "ae"
-            },
-            {
-                "value": "e"
-            },
-            {
-                "value": "pic"
-            },
-            {
-                "value": "stic"
-            },
-            {
-                "value": "ope"
-            },
-            {
-                "value": "ium"
-            },
-            {
-                "value": "lon"
-            },
-            {
-                "value": "don"
-            },
-            {
-                "value": "bon"
-            },
-            {
-                "value": "con"
-            },
-            {
-                "value": "qon"
-            },
-            {
-                "value": "kin"
-            },
-            {
-                "value": "son"
-            },
-            {
-                "value": "yon"
-            },
-            {
-                "value": "yin"
-            },
-            {
-                "value": "lin"
-            },
-            {
-                "value": "min"
-            },
-            {
-                "value": "qin"
-            },
-            {
-                "value": "mer"
-            },
+            "ae",
+            "bon", 
+            "con",
+            "don",
+            "e",
+            "ium",
+            "k", "kin",
+            "l", "lon", "lin",
+            "m", "min", "mer",
+            "n",
+            "ope",
+            "pic",
+            "qon", "qin",
+            "stic", "son",
+            "t", "tt",
+            "yon", "yin"
         ]
     };
     // Also should define the pieces of our treasure for
@@ -475,10 +273,10 @@ var FATERATOR = (function(fateratorModule) {
         thirdSyl = fateratorModule.DATA.names.third;
         // return three syllables - 75% chance
         if(fateratorModule.randomNum(100) < 75) {
-            return firstSyl[fateratorModule.randomNum(firstSyl.length)].value + secondSyl[fateratorModule.randomNum(secondSyl.length)].value + thirdSyl[fateratorModule.randomNum(thirdSyl.length)].value;
+            return firstSyl[fateratorModule.randomNum(firstSyl.length)] + secondSyl[fateratorModule.randomNum(secondSyl.length)] + thirdSyl[fateratorModule.randomNum(thirdSyl.length)];
         }
         // otherwise just return two
-        return firstSyl[fateratorModule.randomNum(firstSyl.length)].value + thirdSyl[fateratorModule.randomNum(thirdSyl.length)].value;
+        return firstSyl[fateratorModule.randomNum(firstSyl.length)] + thirdSyl[fateratorModule.randomNum(thirdSyl.length)];
     };
     // Return a full name
     fateratorModule.createFullName = function() {
