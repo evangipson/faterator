@@ -617,8 +617,60 @@ var FATERATOR = (function(fateratorModule) {
             "guid": "Dg8HDAgFAQo"
         },
         {
-            "value" : "Bounty Hunter",
-            "guid": "AQEBBw0KCAM"
+            "value" : "Wielder of " + fateratorModule.createFantasyName() + ", " + fateratorModule.createTreasure(),
+            "guid": "DgYLBQ0PDwk"
+        },
+        {
+            "value" : "Vassal of " + fateratorModule.createFantasyName(),
+            "guid": "CQUCDQwIAAg"
+        },
+        {
+            "value" : "Droid Programmer",
+            "guid": "BAkFBwwABws"
+        },
+        {
+            "value" : "Droid Mechanic",
+            "guid": "Bg8NBA0PCwM"
+        },
+        {
+            "value" : "Detective",
+            "guid": "DwQFCwcCDAw"
+        },
+        {
+            "value" : "Government Operative",
+            "guid": "AwYLBAgFAwQ"
+        },
+        {
+            "value" : "Consecrated",
+            "guid": "DgMCBgoLDww"
+        },
+        {
+            "value" : "Monk",
+            "guid": "AQ0OCQoEAgs"
+        },
+        {
+            "value" : "Space Monk",
+            "guid": "CgMGBA0HDQI"
+        },
+        {
+            "value" : "Cleric",
+            "guid": "BwcMAAYJCQI"
+        },
+        {
+            "value" : "Friar",
+            "guid": "AwMPAAUFDAw"
+        },
+        {
+            "value" : "Priest",
+            "guid": "AAQFDwwCBQo"
+        },
+        {
+            "value" : "Weaponsmith",
+            "guid": "DwoDCQQGCw8"
+        },
+        {
+            "value" : "Seeker of " + fateratorModule.createFantasyName() + ", the " + fateratorModule.createTreasure(),
+            "guid": "AQkPDAADCQ4"
         }
     ];
     // Append a "aspect" to each high aspect title
