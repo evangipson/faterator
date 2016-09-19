@@ -151,6 +151,11 @@ var FATERATOR = (function(fateratorModule) {
       "Sneaky",
       "Quick"
     ];
+    // Set up variables we'll fill in below
+    var bestApproach = {};
+    var goodApproaches = [];
+    var noviceApproaches = [];
+    var worstApproach = {};
     // Pull in any query string for the first approach
     var firstApproach = getParameterByName("ap1");
     // Assumption: If you have 1 approach, you'll have them all.
@@ -169,11 +174,10 @@ var FATERATOR = (function(fateratorModule) {
       // by the for loop below - gonna hard code this
       // because loop logic would be weird between the
       // bestApproach, goodApproaches, etc. arrays/objects.
-      var bestApproach = {
+      bestApproach = {
         "boost": 3,
         "approach": XORCipher.decode("test", savedApproaches[0])
       };
-      var goodApproaches = [];
       goodApproaches[0] = {
         "boost": 2,
         "approach": XORCipher.decode("test", savedApproaches[1])
@@ -182,7 +186,6 @@ var FATERATOR = (function(fateratorModule) {
         "boost": 2,
         "approach": XORCipher.decode("test", savedApproaches[2])
       };
-      var noviceApproaches = [];
       noviceApproaches[0] = {
         "boost": 1,
         "approach": XORCipher.decode("test", savedApproaches[3])
@@ -190,8 +193,8 @@ var FATERATOR = (function(fateratorModule) {
       noviceApproaches[1] = {
         "boost": 1,
         "approach": XORCipher.decode("test", savedApproaches[4])
-      }
-      var worstApproach = {
+      };
+      worstApproach = {
         "boost": 0,
         "approach": XORCipher.decode("test", savedApproaches[5])
       };
@@ -200,11 +203,10 @@ var FATERATOR = (function(fateratorModule) {
       // Pick one to be our "best" approach, and actually
       // remove it from the array.
       var approachIndex = fateratorModule.randomNum(approaches.length);
-      var bestApproach = {
+      bestApproach = {
         "boost": 3,
         "approach": approaches.splice([fateratorModule.randomNum(approaches.length)], 1)[0]
       };
-      var goodApproaches = [];
       approachIndex = fateratorModule.randomNum(approaches.length);
       goodApproaches[0] = {
         "boost": 2,
@@ -214,8 +216,7 @@ var FATERATOR = (function(fateratorModule) {
       goodApproaches[1] = {
         "boost": 2,
         "approach": approaches.splice([fateratorModule.randomNum(approaches.length)], 1)[0]
-      }
-      var noviceApproaches = [];
+      };
       approachIndex = fateratorModule.randomNum(approaches.length);
       noviceApproaches[0] = {
         "boost": 1,
@@ -225,9 +226,9 @@ var FATERATOR = (function(fateratorModule) {
       noviceApproaches[1] = {
         "boost": 1,
         "approach": approaches.splice([fateratorModule.randomNum(approaches.length)], 1)[0]
-      }
+      };
       approachIndex = fateratorModule.randomNum(approaches.length);
-      var worstApproach = {
+      worstApproach = {
         "boost": 0,
         // I can count on this being the last element in the array since
         // we've iterated on it 5 times and there are 6 elements.
@@ -294,12 +295,14 @@ var FATERATOR = (function(fateratorModule) {
     var savedCharacterStunt = getParameterByName("st");
     // Get the HTML Element
     var stuntElement = document.getElementsByClassName("stunts")[0];
+    // Set up our content variable for later in the function
+    var stuntContent = "";
     // We need a <p> to put the stunt into
     var newParagraphElement = document.createElement("p");
     // If we have a saved character, let's use the query string parameter
     if(savedCharacterStunt) {
       // Create a text node for the stunt information
-      var stuntContent = document.createTextNode(findValueByGuid(FD.stunts,savedCharacterStunt) + " - " + findStuntDescByGuid(savedCharacterStunt));
+      stuntContent = document.createTextNode(findValueByGuid(FD.stunts,savedCharacterStunt) + " - " + findStuntDescByGuid(savedCharacterStunt));
       // Attach the new stunt-y text node to a paragraph element,
       // then to the stunt element after it's wrapped.
       newParagraphElement.appendChild(stuntContent);
@@ -309,7 +312,7 @@ var FATERATOR = (function(fateratorModule) {
       // Otherwise, let's create a new stunt and update the hash
       var newStunt = createStunt();
       // Create a text node for the stunt information
-      var stuntContent = document.createTextNode(newStunt.value + " - " + newStunt.description);
+      stuntContent = document.createTextNode(newStunt.value + " - " + newStunt.description);
       // Attach the new stunt-y text node to a paragraph element,
       // then to the stunt element after it's wrapped.
       newParagraphElement.appendChild(stuntContent);
@@ -435,13 +438,15 @@ var FATERATOR = (function(fateratorModule) {
     // searching through all aspects for
     // the guid carried in
     for(var dataObject in FD.stunts) {
-      for(var i = 0; i < FD.stunts[dataObject].length; i++) {
-        var e = FD.stunts[dataObject][i];
-        if(e.guid === guid) {
-          retAspect = e;
-        };
-        if(retAspect.guid === guid) {
-          return retAspect.description;
+      if(FD.stunts.hasOwnProperty(dataObject)) {
+        for(var i = 0; i < FD.stunts[dataObject].length; i++) {
+          e = FD.stunts[dataObject][i];
+          if(e.guid === guid) {
+            retAspect = e;
+          }
+          if(retAspect.guid === guid) {
+            return retAspect.description;
+          }
         }
       }
     }
@@ -460,13 +465,15 @@ var FATERATOR = (function(fateratorModule) {
     // searching through all aspects for
     // the guid carried in
     for(var dataObject in dataObj) {
-      for(var i = 0; i < dataObj[dataObject].length; i++) {
-        var e = dataObj[dataObject][i];
-        if(e.guid === guid) {
-          retAspect = e;
-        };
-        if(retAspect.guid === guid) {
-          return retAspect.value;
+      if(FD.stunts.hasOwnProperty(dataObject)) {
+        for(var i = 0; i < dataObj[dataObject].length; i++) {
+          e = dataObj[dataObject][i];
+          if(e.guid === guid) {
+            retAspect = e;
+          }
+          if(retAspect.guid === guid) {
+            return retAspect.value;
+          }
         }
       }
     }
