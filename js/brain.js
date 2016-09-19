@@ -465,7 +465,7 @@ var FATERATOR = (function(fateratorModule) {
     // searching through all aspects for
     // the guid carried in
     for(var dataObject in dataObj) {
-      if(FD.stunts.hasOwnProperty(dataObject)) {
+      if(dataObj.hasOwnProperty(dataObject)) {
         for(var i = 0; i < dataObj[dataObject].length; i++) {
           e = dataObj[dataObject][i];
           if(e.guid === guid) {
