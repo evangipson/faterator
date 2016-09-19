@@ -4,7 +4,7 @@
 var FATERATOR = (function(fateratorModule) {
   // Pull in the DATA module
   // "Faterator Data"
-  FD = fateratorModule.DATA;
+  var FD = fateratorModule.DATA;
   // We also need a shared variable
   // for setting our hash after character creation
   var charHash = "";

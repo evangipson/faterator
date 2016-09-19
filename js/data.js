@@ -268,9 +268,9 @@ var FATERATOR = (function(fateratorModule) {
     // Return ONE name that sounds fantasy-y
     fateratorModule.createFantasyName = function() {
         // Pull in the names from our DATA object
-        firstSyl = fateratorModule.DATA.names.first;
-        secondSyl = fateratorModule.DATA.names.second;
-        thirdSyl = fateratorModule.DATA.names.third;
+        var firstSyl = fateratorModule.DATA.names.first;
+        var secondSyl = fateratorModule.DATA.names.second;
+        var thirdSyl = fateratorModule.DATA.names.third;
         // return three syllables - 75% chance
         if(fateratorModule.randomNum(100) < 75) {
             return firstSyl[fateratorModule.randomNum(firstSyl.length)] + secondSyl[fateratorModule.randomNum(secondSyl.length)] + thirdSyl[fateratorModule.randomNum(thirdSyl.length)];
@@ -286,8 +286,8 @@ var FATERATOR = (function(fateratorModule) {
     // or cool-sounding treasure
     fateratorModule.createTreasure = function() {
         // Import our data from our DATA object
-        treasureAdjective = fateratorModule.DATA.treasures.adjective;
-        treasure = fateratorModule.DATA.treasures.noun;
+        var treasureAdjective = fateratorModule.DATA.treasures.adjective;
+        var treasure = fateratorModule.DATA.treasures.noun;
         // Return some configuration of that data
         return treasureAdjective[fateratorModule.randomNum(treasureAdjective.length)].value + " " + treasure[fateratorModule.randomNum(treasure.length)].value;
     };
