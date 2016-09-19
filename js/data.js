@@ -349,6 +349,14 @@ var FATERATOR = (function(fateratorModule) {
             {
                 "value": "Wielder of a fabled " + fateratorModule.createTreasure(),
                 "guid": "DQYODg0BDgQ"
+            },
+            {
+                "value" : "Wielder of " + fateratorModule.createFantasyName() + ", " + fateratorModule.createTreasure(),
+                "guid": "DgYLBQ0PDwk"
+            },
+            {
+                "value" : "Seeker of " + fateratorModule.createFantasyName() + ", the " + fateratorModule.createTreasure(),
+                "guid": "AQkPDAADCQ4"
             }
         ],
         // Player relationships with NPCs/Groups
@@ -617,10 +625,6 @@ var FATERATOR = (function(fateratorModule) {
             "guid": "Dg8HDAgFAQo"
         },
         {
-            "value" : "Wielder of " + fateratorModule.createFantasyName() + ", " + fateratorModule.createTreasure(),
-            "guid": "DgYLBQ0PDwk"
-        },
-        {
             "value" : "Vassal of " + fateratorModule.createFantasyName(),
             "guid": "CQUCDQwIAAg"
         },
@@ -667,10 +671,6 @@ var FATERATOR = (function(fateratorModule) {
         {
             "value" : "Weaponsmith",
             "guid": "DwoDCQQGCw8"
-        },
-        {
-            "value" : "Seeker of " + fateratorModule.createFantasyName() + ", the " + fateratorModule.createTreasure(),
-            "guid": "AQkPDAADCQ4"
         }
     ];
     // Append a "aspect" to each high aspect title
