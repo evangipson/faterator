@@ -324,12 +324,40 @@ var FATERATOR = (function(fateratorModule) {
                 "guid": "CgMNBAYAAww"
             },
             {
-                "value" : "Sworn to avenge their Mother",
+                "value" : "Sworn to avenge their Mother's brutal killing",
                 "guid": "CgwOBAAPDwg"
             },
             {
-                "value" : "Sworn to avenge their entire Family",
-                "guid": "CA8HAAsPDgQ"
+                "value" : "Never leave a man or woman behind",
+                "guid": "CgYCBw8ODwg"
+            },
+            {
+                "value" : "Sucker for a pretty face",
+                "guid": "Cw8ICwcJDwA"
+            },
+            {
+                "value" : "Equality above all",
+                "guid": "AQYABwcLBgQ"
+            },
+            {
+                "value" : "I live on the edge",
+                "guid": "BwsICQAODgo"
+            },
+            {
+                "value" : "Have I got a deal for you!",
+                "guid": "DwwGAAYCAAw"
+            },
+            {
+                "value" : "Leave nothing to chance",
+                "guid": "Ag8GDQgDCAc"
+            },
+            {
+                "value" : "The ways of divinity",
+                "guid": "CAMLBwwFAgU"
+            },
+            {
+                "value" : "Face the onslaught",
+                "guid": "CA4FCA8FAwQ"
             }
         ],
         // Possessions/Items/Artifacts
@@ -351,7 +379,7 @@ var FATERATOR = (function(fateratorModule) {
                 "guid": "DQYODg0BDgQ"
             },
             {
-                "value" : "Wielder of " + fateratorModule.createFantasyName() + ", " + fateratorModule.createTreasure(),
+                "value" : "Wielder of " + fateratorModule.createFantasyName() + ", the " + fateratorModule.createTreasure(),
                 "guid": "DgYLBQ0PDwk"
             },
             {
@@ -386,12 +414,28 @@ var FATERATOR = (function(fateratorModule) {
                 "guid": "DwYCDAIEBQM"
             },
             {
+                "value" : "Cousin of " + fateratorModule.createFantasyName(),
+                "guid": "BQcLCAAJBgw"
+            },
+            {
                 "value" : "Raised in " + fateratorModule.createFantasyName() + " royalty",
                 "guid": "Cg4JCgcHBQs"
             },
             {
                 "value" : "Friend of the " + fateratorModule.createFantasyName(),
                 "guid": "BQcPDgALCgg"
+            },
+            {
+                "value" : "Master of " + fateratorModule.createFantasyName(),
+                "guid": "BQQMDw0HBAQ"
+            },
+            {
+                "value" : "Obsessed with their " + fateratorModule.createTreasure(),
+                "guid": "BwEACAgGBAM"
+            },
+            {
+                "value" : "Obsessed with " + fateratorModule.createFantasyName(),
+                "guid": "AwgIDgwLDQ8"
             }
         ],
         // Titles and traits
@@ -401,11 +445,7 @@ var FATERATOR = (function(fateratorModule) {
                 "guid": "DwQCAgkIAwM"
             },
             {
-                "value" : "Street Waif",
-                "guid": "DAwICAMGCwA"
-            },
-            {
-                "value" : "Of Noble Blood",
+                "value" : "Noble Lineage",
                 "guid": "Cg8IAQQODgs"
             },
             {
@@ -435,7 +475,47 @@ var FATERATOR = (function(fateratorModule) {
             {
                 "value" : "Thief",
                 "guid": "CQAEDw0OCwo"
-            }
+            },
+            {
+                "value" : "Champion of " + fateratorModule.createFantasyName(),
+                "guid": "CwQKDgwOAAE"
+            },
+            {
+                "value" : "Knight of " + fateratorModule.createFantasyName(),
+                "guid": "DwcIAw8FDwg"
+            },
+            {
+                "value" : "Chivalrous",
+                "guid": "DAsIAAgJAwc"
+            },
+            {
+                "value" : "Greedy",
+                "guid": "DwkLAwALCAE"
+            },
+            {
+                "value" : "Reckless",
+                "guid": "DAALBgkPCQA"
+            },
+            {
+                "value" : "Cunning",
+                "guid": "BQsHBQkGDQI"
+            },
+            {
+                "value" : "Curious",
+                "guid": "AQEDDA4CAAA"
+            },
+            {
+                "value" : "Psychic",
+                "guid": "Dg4EBQoEBAA"
+            },
+            {
+                "value" : "Visions",
+                "guid": "CQ0NAQsJCg4"
+            },
+            {
+                "value" : "Knowledgable about the " + fateratorModule.createFantasyName(),
+                "guid": "AwAICw0MDAw"
+            },
         ]
     };
     // Character troubles
