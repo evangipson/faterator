@@ -518,11 +518,11 @@ var FATERATOR = (function(fateratorModule) {
                 "guid": "CwcLAwMPDAQ"
             },
             {
-                "value" : "Never trust a " + fateratorModule.createFantasyName(),
+                "value" : "Never trust " + fateratorModule.createFantasyName(),
                 "guid": "DQ0PAgQACg8"
             },
             {
-                "value" : "Sworn to avenge their Father",
+                "value" : "Sworn vengence on their Father",
                 "guid": "CgMNBAYAAww"
             },
             {
@@ -530,7 +530,7 @@ var FATERATOR = (function(fateratorModule) {
                 "guid": "CgwOBAAPDwg"
             },
             {
-                "value" : "Sworn to avenge their Family",
+                "value" : "Sworn to avenge their entire Family",
                 "guid": "CA8HAAsPDgQ"
             }
         ],
@@ -568,7 +568,7 @@ var FATERATOR = (function(fateratorModule) {
                 "guid": "CwcLAwMPDAQ"
             },
             {
-                "value" : "Never trust a " + fateratorModule.createFantasyName(),
+                "value" : "Never trust " + fateratorModule.createFantasyName(),
                 "guid": "DQ0PAgQACg8"
             },
             {
@@ -669,7 +669,7 @@ var FATERATOR = (function(fateratorModule) {
                 "guid": "BAoGCA4NBAE"
             },
             {
-                "value": "Has a " + fateratorModule.createTreasure() + " stuck on their body",
+                "value": "A possessed " + fateratorModule.createTreasure() + " is stuck on their body",
                 "guid": "DQUNBwcODQ4"
             }
         ]
