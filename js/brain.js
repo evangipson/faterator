@@ -131,11 +131,15 @@ var FATERATOR = (function(fateratorModule) {
     var nameElement = document.getElementsByClassName("name")[0];
     // If we have a saved character, let's use the query string parameter
     if(savedCharacterName) {
-      nameElement.innerHTML += " " + savedCharacterName;
+      // The <br /> provides mobile copy/paste functionality
+      // on Chrome for Android.
+      nameElement.innerHTML += " " + savedCharacterName + "<br />";
     }
     else {
       var fullName = fateratorModule.createFullName();
-      nameElement.innerHTML += " " + fullName;
+      // The <br /> provides mobile copy/paste functionality
+      // on Chrome for Android.
+      nameElement.innerHTML += " " + fullName + "<br />";
       updateHashParam("chNm", XORCipher.encode("test", fullName));
     }
   }
@@ -251,7 +255,9 @@ var FATERATOR = (function(fateratorModule) {
     var tempListItem = {};
     for(var i = 0; i < approaches.length; i++) {
       tempListItem = document.createElement("li");
-      tempListItem.appendChild(document.createTextNode(approaches[i].approach + ": +" + approaches[i].boost));
+      // The <br /> provides mobile copy/paste functionality
+      // on Chrome for Android.
+      tempListItem.innerHTML = approaches[i].approach + ": +" + approaches[i].boost + "<br />";
       nameListElement.appendChild(tempListItem);
       // If we dont't have the firstApproach query string,
       // let's update the hash parameter so we remember!
@@ -294,27 +300,23 @@ var FATERATOR = (function(fateratorModule) {
     var savedCharacterStunt = getParameterByName("st");
     // Get the HTML Element
     var stuntElement = document.getElementsByClassName("stunts")[0];
-    // Set up our content variable for later in the function
-    var stuntContent = "";
     // We need a <p> to put the stunt into
     var newParagraphElement = document.createElement("p");
     // If we have a saved character, let's use the query string parameter
     if(savedCharacterStunt) {
-      // Create a text node for the stunt information
-      stuntContent = document.createTextNode(findValueByGuid(FD.stunts,savedCharacterStunt) + " - " + findStuntDescByGuid(savedCharacterStunt));
-      // Attach the new stunt-y text node to a paragraph element,
-      // then to the stunt element after it's wrapped.
-      newParagraphElement.appendChild(stuntContent);
+      // Create a text node for the stunt information.
+      // The <br /> provides mobile copy/paste functionality
+      // on Chrome for Android.
+      newParagraphElement.innerHTML = findValueByGuid(FD.stunts,savedCharacterStunt) + " - " + findStuntDescByGuid(savedCharacterStunt) + "<br />";
       stuntElement.appendChild(newParagraphElement);
     }
     else {
       // Otherwise, let's create a new stunt and update the hash
       var newStunt = createStunt();
-      // Create a text node for the stunt information
-      stuntContent = document.createTextNode(newStunt.value + " - " + newStunt.description);
-      // Attach the new stunt-y text node to a paragraph element,
-      // then to the stunt element after it's wrapped.
-      newParagraphElement.appendChild(stuntContent);
+      // Create a text node for the stunt information.
+      // The <br /> provides mobile copy/paste functionality
+      // on Chrome for Android.
+      newParagraphElement.innerHTML = newStunt.value + " - " + newStunt.description + "<br />";
       stuntElement.appendChild(newParagraphElement);
       // Update the hash
       updateHashParam("st", newStunt.guid);
@@ -342,14 +344,36 @@ var FATERATOR = (function(fateratorModule) {
     var troubleElement = document.getElementsByClassName("trouble")[0];
     // If we have a saved character, let's use the query string parameter
     if(savedCharacterTrouble) {
-      troubleElement.innerHTML += " " + findValueByGuid(FD.troubles,savedCharacterTrouble);
+      // The <br /> provides mobile copy/paste functionality
+      // on Chrome for Android.
+      troubleElement.innerHTML += " " + findValueByGuid(FD.troubles,savedCharacterTrouble) + "<br />";
     }
     // Otherwise just create a new trouble and update the hash
     else {
       var trouble = createTrouble();
-      troubleElement.innerHTML += " " + trouble.value;
+      // The <br /> provides mobile copy/paste functionality
+      // on Chrome for Android.
+      troubleElement.innerHTML += " " + trouble.value + "<br />";
       updateHashParam("tr", trouble.guid);
     }
+  }
+  /**
+   * Will render out an aspect as a list item,
+   * then attach that to a provided parent element,
+   * usually a <ul>.
+   * @param {HTML Element} unorderedListItem
+   * @param {Aspect} aspect
+   */
+  function renderAspectAsListItem(unorderedListItem, aspect) {
+      var tempListItem = document.createElement("li");
+      // The <br /> provides mobile copy/paste functionality
+      // on Chrome for Android.
+      tempListItem.innerHTML = aspect + "<br />";
+      unorderedListItem.appendChild(tempListItem);
+      // Update the player aspect guid array to contain
+      // this guid
+      //console.log("updating playerAspectGuids with " + aspect + " array: " + fateratorModule.playerAspectGuids);
+      fateratorModule.playerAspectGuids.push(aspect);
   }
   // Function to render out the remaining aspects
   function renderAspects() {
@@ -358,7 +382,6 @@ var FATERATOR = (function(fateratorModule) {
     // Create other variables we'll need later.
     var aspectDiv = document.getElementsByClassName("aspects")[0];
     var nameListElement = document.createElement("ul");
-    var tempListItem = {};
     var tempAspect = {};
     // Attempt to pull in the first aspect
     var firstAspect = getParameterByName("a1");
@@ -366,16 +389,10 @@ var FATERATOR = (function(fateratorModule) {
       // Decrease number of aspects because we found
       // one provided on the query string
       numberOfAspects -= 1;
-      // Fill in the HTML element
-      tempAspect = findValueByGuid(FD.aspects,firstAspect);
-      tempListItem = document.createElement("li");
-      tempListItem.appendChild(document.createTextNode(tempAspect));
-      nameListElement.appendChild(tempListItem);
-      aspectDiv.appendChild(nameListElement);
-      // Update the player aspect guid array to contain
-      // this guid
-      //console.log("updating playerAspectGuids with " + firstAspect + " array: " + fateratorModule.playerAspectGuids);
-      fateratorModule.playerAspectGuids.push(firstAspect);
+      // Set the temporary aspect we're going to pass to
+      // the renderAspectAsListItem function.
+      tempAspect = findValueByGuid(FD.aspects, firstAspect);
+      renderAspectAsListItem(nameListElement, tempAspect);
     }
     // Attempt to pull in the second aspect
     var secondAspect = getParameterByName("a2");
@@ -384,15 +401,10 @@ var FATERATOR = (function(fateratorModule) {
       // Decrease number of aspects because we found
       // one provided on the query string
       numberOfAspects -= 1;
-      // Fill in the HTML element
-      tempAspect = findValueByGuid(FD.aspects,secondAspect);
-      tempListItem = document.createElement("li");
-      tempListItem.appendChild(document.createTextNode(tempAspect));
-      nameListElement.appendChild(tempListItem);
-      aspectDiv.appendChild(nameListElement);
-      // Update the player aspect guid array to contain
-      // this guid
-      fateratorModule.playerAspectGuids.push(secondAspect);
+      // Set the temporary aspect we're going to pass to
+      // the renderAspectAsListItem function.
+      tempAspect = findValueByGuid(FD.aspects, secondAspect);
+      renderAspectAsListItem(nameListElement, tempAspect);
     }
     // Attempt to pull in the third aspect
     var thirdAspect = getParameterByName("a3");
@@ -401,30 +413,29 @@ var FATERATOR = (function(fateratorModule) {
       // Decrease number of aspects because we found
       // one provided on the query string
       numberOfAspects -= 1;
-      // Fill in the HTML element
-      tempAspect = findValueByGuid(FD.aspects,thirdAspect);
-      tempListItem = document.createElement("li");
-      tempListItem.appendChild(document.createTextNode(tempAspect));
-      nameListElement.appendChild(tempListItem);
-      aspectDiv.appendChild(nameListElement);
-      // Update the player aspect guid array to contain
-      // this guid
-      fateratorModule.playerAspectGuids.push(thirdAspect);
+      // Set the temporary aspect we're going to pass to
+      // the renderAspectAsListItem function.
+      tempAspect = findValueByGuid(FD.aspects, thirdAspect);
+      renderAspectAsListItem(nameListElement, tempAspect);
     }
     // Just leave the function if we don't have any aspects
     // left to render
-    if(numberOfAspects <= 0) { return; }
+    if(numberOfAspects <= 0) {
+      // Attach our <ul> to the parent <div> now that it's
+      // all filled up.
+      aspectDiv.appendChild(nameListElement);
+      return;
+    }
     // Otherwise, let's create some fresh ones!
     for(var i = 0; i < numberOfAspects; i++) {
+      // Set the temporary aspect we're going to pass to
+      // the renderAspectAsListItem function.
       tempAspect = fateratorModule.createAspect();
-      tempListItem = document.createElement("li");
-      tempListItem.appendChild(document.createTextNode(tempAspect.value));
-      nameListElement.appendChild(tempListItem);
-      // Update the player aspect guid array to contain
-      // this guid
-      fateratorModule.playerAspectGuids.push(tempAspect.guid);
+      renderAspectAsListItem(nameListElement, tempAspect.value);
       updateHashParam("a"+(i+1), tempAspect.guid);
     }
+    // Attach our <ul> to the parent <div> now that it's
+    // all filled up.
     aspectDiv.appendChild(nameListElement);
   }
   // This function will locate a stunt's' description
@@ -496,8 +507,10 @@ var FATERATOR = (function(fateratorModule) {
       });
       // I am assuming savedHighAspectAspect will be there, Because
       // each high aspect has an associated aspect, as defined in data.js,
-      // Also update the HTML element with the value of the guid
-      aspectDiv.innerHTML += " " + targetTitle.value + ", " + findValueByGuid(FD.aspects,savedHighAspectAspect);
+      // Also update the HTML element with the value of the guid.
+      // The <br /> provides mobile copy/paste functionality
+      // on Chrome for Android.
+      aspectDiv.innerHTML += " " + targetTitle.value + ", " + findValueByGuid(FD.aspects,savedHighAspectAspect + "<br />");
       // Update the player aspect guid array to contain
       // this guid
       fateratorModule.playerAspectGuids.push(savedHighAspectAspect);
@@ -507,7 +520,9 @@ var FATERATOR = (function(fateratorModule) {
       var highAspectIndex = fateratorModule.randomNum(FD.aspects.highAspectTitles.length);
       // Also we're going to use a new aspect
       var newAspect = fateratorModule.createAspect();
-      aspectDiv.innerHTML += " " + FD.aspects.highAspectTitles[highAspectIndex].value + ", " + newAspect.value;
+      // The <br /> provides mobile copy/paste functionality
+      // on Chrome for Android.
+      aspectDiv.innerHTML += " " + FD.aspects.highAspectTitles[highAspectIndex].value + ", " + newAspect.value + "<br />";
       // Update the hash params so reloads work
       updateHashParam("hA", FD.aspects.highAspectTitles[highAspectIndex].guid);
       updateHashParam("hAa", newAspect.guid);
